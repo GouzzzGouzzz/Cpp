@@ -6,15 +6,17 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/05/02 17:47:59 by gouz             ###   ########.fr        #
+#    Updated: 2023/05/03 02:16:59 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=megaphone
+NAME=phonebook
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
-FILES=megaphone.cpp	\
+FILES=main.cpp\
+	ContactClass.cpp\
+	PhoneBookClass.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
