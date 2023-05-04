@@ -1,6 +1,7 @@
 #ifndef Phone_Book_Hpp
 # define Phone_Book_Hpp
 # include "ContactClass.hpp"
+# include <iostream>
 
 class PhoneBook
 {

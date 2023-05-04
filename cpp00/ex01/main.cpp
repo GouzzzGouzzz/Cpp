@@ -1,9 +1,10 @@
-#include <iostream>
 #include "PhoneBookClass.hpp"
+#include <string>
 
 static void	add(PhoneBook *phonebook)
 {
 	int index = phonebook->target;
+	std::string data;
 	if (phonebook->nb_contact < 8)
 	{
 		phonebook->target++;
@@ -11,16 +12,22 @@ static void	add(PhoneBook *phonebook)
 	}
 	if (phonebook->target >= 8)
 		phonebook->target = 0;
-	std::cout << "Enter a first name" << std::endl;
-	std::cin >> phonebook->contact[index].first_name;
+	std::cin.ignore();
+	std::cout << "Enter a first name" << std::endl; //can enter empty field
+	std::getline(std::cin, data);
+	phonebook->contact[index].set_firstname(data);
 	std::cout << "Enter a last name" << std::endl;
-	std::cin >> phonebook->contact[index].last_name;
+	std::getline(std::cin, data);
+	phonebook->contact[index].set_lastname(data);
 	std::cout << "Enter a nickname" << std::endl;
-	std::cin >> phonebook->contact[index].nickname;
+	std::getline(std::cin, data);
+	phonebook->contact[index].set_nickname(data);
 	std::cout << "Enter a phone number" << std::endl;
-	std::cin >> phonebook->contact[index].phone;
+	std::getline(std::cin, data);
+	phonebook->contact[index].set_phone(data);
 	std::cout << "Enter the biggest secret you know about him / her" << std::endl;
-	std::cin >> phonebook->contact[index].secret;
+	std::getline(std::cin, data);
+	phonebook->contact[index].set_secret(data);
 }
 
 int main()
