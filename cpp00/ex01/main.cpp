@@ -4,30 +4,35 @@
 static void	add(PhoneBook *phonebook)
 {
 	int index = phonebook->target;
-	std::string data;
-	if (phonebook->nb_contact < 8)
-	{
-		phonebook->target++;
-		phonebook->nb_contact++;
-	}
+	std::string first, last, nick, phone, secret;
 	if (phonebook->target >= 8)
 		phonebook->target = 0;
 	std::cin.ignore();
 	std::cout << "Enter a first name" << std::endl; //can enter empty field
-	std::getline(std::cin, data);
-	phonebook->contact[index].set_firstname(data);
+	std::getline(std::cin, first);
 	std::cout << "Enter a last name" << std::endl;
-	std::getline(std::cin, data);
-	phonebook->contact[index].set_lastname(data);
+	std::getline(std::cin, last);
 	std::cout << "Enter a nickname" << std::endl;
-	std::getline(std::cin, data);
-	phonebook->contact[index].set_nickname(data);
+	std::getline(std::cin, nick);
 	std::cout << "Enter a phone number" << std::endl;
-	std::getline(std::cin, data);
-	phonebook->contact[index].set_phone(data);
+	std::getline(std::cin, phone);
 	std::cout << "Enter the biggest secret you know about him / her" << std::endl;
-	std::getline(std::cin, data);
-	phonebook->contact[index].set_secret(data);
+	std::getline(std::cin, secret);
+	if (!last.empty() && !first.empty() && !nick.empty() && !phone.empty() && !secret.empty())
+	{
+		phonebook->contact[index].set_firstname(first);
+		phonebook->contact[index].set_lastname(last);
+		phonebook->contact[index].set_nickname(nick);
+		phonebook->contact[index].set_phone(phone);
+		phonebook->contact[index].set_secret(secret);
+		if (phonebook->nb_contact < 8)
+		{
+			phonebook->target++;
+			phonebook->nb_contact++;
+		}
+	}
+	else
+		std::cout << "A field is empty, the contact will not be saved" << std::endl;
 }
 
 int main()
