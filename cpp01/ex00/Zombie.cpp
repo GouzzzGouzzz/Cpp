@@ -1,0 +1,22 @@
+#include "Zombie.hpp"
+
+Zombie::Zombie( std::string name)
+{
+	this->name = name;
+	std::cout << "Constructor called by "<< this->name << std::endl;
+}
+
+Zombie::~Zombie()
+{
+	std::cout << "Deconstructor called by "<< this->name << std::endl;
+}
+
+std::string Zombie::get_name()
+{
+	return this->name;
+}
+
+void Zombie::announce(void)
+{
+	std::cout << get_name() << ": BraiiiiiiinnnzzzZ..." << std::endl;
+}
