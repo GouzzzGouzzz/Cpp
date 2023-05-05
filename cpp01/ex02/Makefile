@@ -6,17 +6,15 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/05/05 20:16:30 by gouz             ###   ########.fr        #
+#    Updated: 2023/05/05 20:32:58 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=Horde
+NAME=ref
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
-	Zombie.cpp\
-	zombieHorde.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
