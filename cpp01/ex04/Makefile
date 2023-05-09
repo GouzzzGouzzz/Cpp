@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
+#    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/05/05 20:32:58 by gouz             ###   ########.fr        #
+#    Updated: 2023/05/09 15:13:57 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=ref
+NAME=sed
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
