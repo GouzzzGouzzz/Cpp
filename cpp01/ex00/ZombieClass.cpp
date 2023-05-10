@@ -14,7 +14,7 @@ Zombie::Zombie()
 
 Zombie::~Zombie()
 {
-	std::cout << "Deconstructor called by "<< this->name << std::endl;
+	std::cout << "Destructor called by "<< this->name << std::endl;
 }
 
 std::string Zombie::get_name()
