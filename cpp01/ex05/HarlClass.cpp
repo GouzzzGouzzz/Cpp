@@ -33,10 +33,5 @@ void	Harl::error(void)
 
 void	Harl::complain(std::string level)
 {
-	std::string str[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	void (Harl::*FuncArr[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	std::cout << FuncArr[0]<< std::endl;
-	for (int i = 0; i < 4; i++)
-		if (str[i] == level)
-			FuncArr[0];
+
 }
