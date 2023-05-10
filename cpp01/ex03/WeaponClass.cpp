@@ -6,13 +6,19 @@ Weapon::Weapon(std::string name)
 	std::cout << "Weapon constructor called" << std::endl;
 }
 
+Weapon::Weapon()
+{
+	this->type = "\0";
+	std::cout << "Weapon constructor called" << std::endl;
+}
+
 Weapon::~Weapon()
 {
 	std::cout << "Weapon destructor called" << std::endl;
 
 }
 
-std::string Weapon::getType(void)
+const std::string& Weapon::getType(void)
 {
 	return (this->type);
 }
