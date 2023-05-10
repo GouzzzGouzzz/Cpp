@@ -3,27 +3,19 @@
 
 static std::string replace_line(std::string line, std::string s1, std::string s2)
 {
-	std::string temp, newline;
-	int offset = 0;
-	if (line.find(s1))
+	int temp, offset = 0;
+	std::string edit_line = line;
+	while (1)
 	{
-		temp = &line[line.find(s1)];
-		while (temp.compare(0,s2.size(), s2) == 0)
-		{
-			temp = temp[1];
-			temp = &temp[temp.find(s1)];
-		}
-		offset = line.size() - temp.size(); // not good
-		temp.erase(0, s1.size());
-		temp.insert(0, s2);
-		std::cout << "temp=" <<temp << "offest is "<< offset << std::endl;
+		temp = edit_line.find(s1);
+		if (temp < 0)
+			break;
+		line.erase(temp + offset, s1.size());
+		line.insert(temp + offset, s2);
+		offset += s2.size();
+		edit_line.erase(temp, s1.size());
 	}
-	else
-		return (line);
-	newline.append(line, 0, offset);
-	newline.append(temp);
-	std::cout << "after proc="<< newline << "||"<< std::endl;
-	return newline;
+	return line.append("\n");
 }
 
 int replace(std::ifstream *in, std::ofstream *out, char *search, char *rep)
@@ -34,10 +26,7 @@ int replace(std::ifstream *in, std::ofstream *out, char *search, char *rep)
 	while (std::getline((*in), line,'\n'))
 	{
 		line = replace_line(line, s1, s2);
-		line = replace_line(line, s1, s2);
-		line = replace_line(line, s1, s2);
-		std::cout << "line= "<<line << std::endl;
-		break;
+		out->write(line.c_str(),line.size());
 	}
 
 	return 1;
