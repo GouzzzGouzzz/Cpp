@@ -18,7 +18,7 @@ static std::string replace_line(std::string line, std::string s1, std::string s2
 	return line.append("\n");
 }
 
-int replace(std::ifstream *in, std::ofstream *out, char *search, char *rep)
+static int replace(std::ifstream *in, std::ofstream *out, char *search, char *rep)
 {
 	std::string s1, s2, line;
 	s1 = search;
