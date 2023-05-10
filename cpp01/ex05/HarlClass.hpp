@@ -9,6 +9,7 @@ public:
 	~Harl();
 	void complain( std::string );
 private:
+	typedef void (Harl::*func)();
 	void debug( void );
 	void info( void );
 	void warning( void );
