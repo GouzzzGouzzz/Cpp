@@ -1,6 +1,7 @@
 #ifndef FIXEDPOINT_HPP
 # define FIXEDPOINT
 # include <iostream>
+# include <cmath>
 
 class Fixed
 {

@@ -21,7 +21,7 @@ Fixed::Fixed(const int value)
 Fixed::Fixed(const float value)
 {
 	std::cout << "Float constructor called" << std::endl;
-	this->value = (int)value;
+	//rien compris
 }
 
 Fixed& Fixed::operator=(Fixed &copy)
