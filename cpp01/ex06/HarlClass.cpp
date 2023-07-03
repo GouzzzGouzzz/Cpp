@@ -5,11 +5,9 @@ Harl::Harl(void)
 	std::cout << "Harl constructor called" << std::endl;
 }
 
-
 Harl::~Harl(void)
 {
 	std::cout << "Harl destructor called" << std::endl;
-
 }
 
 void	Harl::debug(void)

@@ -8,7 +8,6 @@ Harl::Harl(void)
 Harl::~Harl(void)
 {
 	std::cout << "Harl destructor called" << std::endl;
-
 }
 
 void	Harl::debug(void)
@@ -42,4 +41,3 @@ void	Harl::complain(std::string level)
 		}
 	std::cout << "Input not found" << std::endl;
 }
-
