@@ -16,7 +16,6 @@ public:
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
 	Fixed& operator=(Fixed &copy);
-	Fixed& operator<<(Fixed &copy);
 private:
 	int _value;
 	static const int _fracbits = 8;
