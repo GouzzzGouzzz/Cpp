@@ -1,5 +1,5 @@
 #ifndef FIXEDPOINT_HPP
-# define FIXEDPOINT
+# define FIXEDPOINT_HPP
 # include <iostream>
 
 class Fixed

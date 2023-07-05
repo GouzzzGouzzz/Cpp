@@ -1,5 +1,5 @@
 #ifndef FIXEDPOINT_HPP
-# define FIXEDPOINT
+# define FIXEDPOINT_HPP
 # include <iostream>
 # include <cmath>
 
@@ -15,7 +15,7 @@ public:
 	~Fixed();
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
-	Fixed& operator=(Fixed &copy);
+	Fixed& operator=(const Fixed &copy);
 private:
 	int _value;
 	static const int _fracbits = 8;
