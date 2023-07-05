@@ -16,9 +16,25 @@ public:
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
 	Fixed& operator=(const Fixed &copy);
+	bool operator==(const Fixed &other);
+	bool operator!=(const Fixed &other);
+	bool operator<(const Fixed &other);
+	bool operator>(const Fixed &other);
+	bool operator>=(const Fixed &other);
+	bool operator<=(const Fixed &other);
+	Fixed operator+(const Fixed &other);
+	Fixed operator-(const Fixed &other);
+	Fixed operator/(const Fixed &other);
+	Fixed operator*(const Fixed &other);
+	Fixed operator++();
+	Fixed operator--();
+	Fixed operator++(int);
+	Fixed operator--(int);
 private:
 	int _value;
 	static const int _fracbits = 8;
 };
+
+std::ostream& operator<<(std::ostream& os, const Fixed& obj);
 
 #endif
