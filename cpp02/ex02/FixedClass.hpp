@@ -21,6 +21,4 @@ private:
 	static const int _fracbits = 8;
 };
 
-std::ostream& operator<<(std::ostream& os, const Fixed& obj);
-
 #endif

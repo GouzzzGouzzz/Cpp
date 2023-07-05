@@ -36,12 +36,6 @@ Fixed& Fixed::operator=(const Fixed &copy)
 	return (*this);
 }
 
-std::ostream& operator<<(std::ostream& os, const Fixed& obj)
-{
-	os << obj.toFloat();
-	return (os);
-}
-
 int	Fixed::getRawBits(void) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
@@ -63,3 +57,4 @@ float	Fixed::toFloat( void ) const
 {
 	return (this->_value / (float)(1 << this->_fracbits));
 }
+
