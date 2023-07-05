@@ -28,5 +28,7 @@ int main( void ) {
 	std::cout << --d << "	--d" << std::endl;
 	std::cout << d-- << "	d--" << std::endl;
 	std::cout << d << "		d" << std::endl;
+
+	std::cout << "\n\nTesting function\n\n" << std::endl;
 return 0;
 }
