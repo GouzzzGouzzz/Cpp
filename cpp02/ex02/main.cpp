@@ -29,6 +29,13 @@ int main( void ) {
 	std::cout << d-- << "	d--" << std::endl;
 	std::cout << d << "		d" << std::endl;
 
+	const Fixed l(5.3f);
+	const Fixed p(5);
+
 	std::cout << "\n\nTesting function\n\n" << std::endl;
+	std::cout << Fixed::min(a,b) << "min(a,b) --> a" << std::endl;
+	std::cout << Fixed::min(l,p) << "min(l,p) --> p" << std::endl;
+	std::cout << Fixed::max(a,b) << "min(a,b) --> b" << std::endl;
+	std::cout << Fixed::max(l,p) << "min(l,p) --> l" << std::endl;
 return 0;
 }
