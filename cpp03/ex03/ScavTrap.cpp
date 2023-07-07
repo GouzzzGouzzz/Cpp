@@ -9,6 +9,15 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	this->_Max_hp = 100;
 }
 
+ScavTrap::ScavTrap() : ClapTrap()
+{
+	this->_Hitpoints = 100;
+	this->_Energy = 50;
+	this->_Attack_dmg = 20;
+	this->_Max_hp = 100;
+	std::cout << "ScavTrap default constructor called\n";
+}
+
 ScavTrap::~ScavTrap()
 {
 	std::cout << "ScavTrap destructor called\n";

@@ -2,9 +2,14 @@
 
 //CONSTRUCTOR
 
-ClapTrap::ClapTrap(std::string name) : _Name(name), _Hitpoints(10), _Energy(10), _Attack_dmg(0)
+ClapTrap::ClapTrap(std::string name) : _Name(name), _Hitpoints(10), _Energy(10), _Attack_dmg(0) ,_Max_hp(10)
 {
 	std::cout << "ClapTrap constructor called\n";
+}
+
+ClapTrap::ClapTrap() : _Name(""), _Hitpoints(10), _Energy(10), _Attack_dmg(0) ,_Max_hp(10)
+{
+	std::cout << "ClapTrap default constructor called\n";
 }
 
 ClapTrap::~ClapTrap()
@@ -27,7 +32,7 @@ void	ClapTrap::attack(const std::string& target)
 		return ;
 	}
 	this->_Energy--;
-	std::cout << this->_Name << " attacked " << target << " and deal " << this->_Attack_dmg << " damage\n";
+	std::cout << this->_Name << " (ClapTrap) attacked " << target << " and deal " << this->_Attack_dmg << " damage\n";
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
@@ -57,9 +62,9 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	}
 	this->_Energy--;
 	this->_Hitpoints += amount;
-	if (this->_Hitpoints >= 10)
+	if (this->_Hitpoints >= this->_Max_hp)
 	{
-		this->_Hitpoints = 10;
+		this->_Hitpoints = this->_Max_hp;
 		std::cout << this->_Name << " has been fully repaired | Current Hithpoint:" << this->_Hitpoints << "\n";
 	}
 	else
