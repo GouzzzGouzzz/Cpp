@@ -5,12 +5,13 @@
 
 class PhoneBook
 {
+	Contact	_contact[8];
+	int		_nb_contact;
+	int		_target;
 public:
-	Contact	contact[8];
-	int		nb_contact;
-	int		target;
 	void	showinfo( void );
 	void	showcontact( int );
+	void	add();
 	PhoneBook();
 	~PhoneBook();
 };
