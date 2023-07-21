@@ -6,13 +6,13 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/21 12:44:59 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/21 19:55:34 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=Polymorph
+NAME=WorldOnFire
 CC=g++
-CFLAGS=-Wall -Werror -Wextra -std=c++98
+CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
 
 FILES=main.cpp\
 	Dog.cpp\
