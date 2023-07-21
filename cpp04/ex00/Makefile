@@ -6,7 +6,7 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/20 23:53:00 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/21 12:39:01 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ FILES=main.cpp\
 	Dog.cpp\
 	Cat.cpp\
 	Animal.cpp\
+	WrongCat.cpp\
+	WrongAnimal.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
