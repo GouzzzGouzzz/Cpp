@@ -3,7 +3,7 @@
 
 //CONSTRUCTOR
 
-Cat::Cat() : Animal()
+Cat::Cat() : AAnimal()
 {
 	std::cout << "Cat constructor called\n";
 	this->setType("Cat");

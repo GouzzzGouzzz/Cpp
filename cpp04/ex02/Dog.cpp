@@ -2,7 +2,7 @@
 
 //CONSTRUCTOR
 
-Dog::Dog() : Animal()
+Dog::Dog() : AAnimal()
 {
 	std::cout << "Dog constructor called\n";
 	this->setType("Dog");

@@ -6,7 +6,7 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/21 19:57:40 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/22 17:29:22 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
 FILES=main.cpp\
 	Dog.cpp\
 	Cat.cpp\
-	Animal.cpp\
+	AAnimal.cpp\
 	Brain.cpp\
 	WrongAnimal.cpp\
 	WrongCat.cpp\

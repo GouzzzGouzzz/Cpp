@@ -1,44 +1,44 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
 //CONSTRUCTOR
 
-Animal::Animal() : _type("Unknown")
+AAnimal::AAnimal() : _type("Unknown")
 {
 	std::cout << "Animal constructor called\n";
 }
 
-Animal::Animal(const Animal &copy) : _type(copy._type)
+AAnimal::AAnimal(const AAnimal &copy) : _type(copy._type)
 {
 	std::cout << "Copy constructor called\n";
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
 	std::cout << "Animal destructor called\n";
 }
 
 //SETTER/GETTER
 
-std::string Animal::getType() const
+std::string AAnimal::getType() const
 {
 	return (this->_type);
 }
 
-void Animal::setType(std::string new_type)
+void AAnimal::setType(std::string new_type)
 {
 	this->_type = new_type;
 }
 
 //FUNCTION
 
-void Animal::makeSound() const
+void AAnimal::makeSound() const
 {
 	std::cout << "* weird and scary yell *\n";
 }
 
 //OVERLOADING
 
-Animal& Animal::operator=(const Animal &copy)
+AAnimal& AAnimal::operator=(const AAnimal &copy)
 {
 	std::cout << "Copy constructor operator called\n";
 	if (this != &copy)
