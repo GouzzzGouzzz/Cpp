@@ -6,11 +6,11 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/21 19:56:54 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/21 19:57:40 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=WorldOnFire
+NAME=AbstractClass
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
 
