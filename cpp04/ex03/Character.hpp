@@ -8,14 +8,14 @@ private:
 	AMateria *_inventory[4];
 	AMateria *_onGround[100];
 	int _groundSlot;
-	int	_slot;
+	bool	full_inv;
 public:
 	Character(std::string Name);
 	Character(const Character &copy);
 	~Character();
-	std::string const & getName() const;
 	Character& operator=(const Character &copy);
-	void equip(AMateria* m);
-	void unequip(int idx);
-	void use(int idx, Character& target);
+	virtual	std::string const & getName() const;
+	virtual void equip(AMateria* m);
+	virtual void unequip(int idx);
+	virtual void use(int idx, ICharacter& target);
 };

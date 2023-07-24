@@ -6,7 +6,7 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/22 17:44:06 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/24 14:07:27 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,11 @@ CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98 -g
 
 FILES=main.cpp\
+	AMateria.cpp\
+	Character.cpp\
+	Cure.cpp\
+	Ice.cpp\
+	MateriaSource.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 

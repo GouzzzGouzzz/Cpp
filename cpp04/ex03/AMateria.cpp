@@ -15,3 +15,10 @@ AMateria::~AMateria()
 //SETTER/GETTER
 
 const std::string& AMateria::getType() const { return this->_type; }
+
+//Functions
+
+void AMateria::use(ICharacter& target)
+{
+	std::cout << "AMateria (" << this->getType() << ") used is ability on " << target.getName();
+}
