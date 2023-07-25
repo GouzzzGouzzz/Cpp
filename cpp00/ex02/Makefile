@@ -6,18 +6,16 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/07/25 15:37:54 by gouz             ###   ########.fr        #
+#    Updated: 2023/07/25 16:00:40 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=phonebook
+NAME=Account
 CC=g++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
-FILES=main.cpp\
-	ContactClass.cpp\
-	PhoneBookClass.cpp\
-
+FILES=tests.cpp\
+	Account.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
