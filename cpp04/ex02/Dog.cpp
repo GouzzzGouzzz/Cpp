@@ -9,7 +9,7 @@ Dog::Dog() : AAnimal()
 	this->_brain = new Brain();
 }
 
-Dog::Dog(const Dog &copy)
+Dog::Dog(const Dog &copy) : AAnimal()
 {
 	std::cout << "Copy constructor called\n";
 	this->_type = copy._type;
