@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 		std::cout << "Error while opening the file" << std::endl;
 		return 0;
 	}
-	out_file.open(name.append(".replace"), std::ios::out);
+	out_file.open(name.append(".replace").c_str(), std::ios::out);
 	if (!out_file)
 	{
 		std::cout << "Error while creating the file" << std::endl;

@@ -3,7 +3,7 @@
 HumanB::HumanB(const char *name)
 {
 	this->name = name;
-	this->weapon = nullptr;
+	this->weapon = NULL;
 	std::cout << "HumanB constructor called by : " << this->name << std::endl;
 }
 
@@ -19,7 +19,7 @@ void HumanB::setWeapon(Weapon& weapon)
 
 void HumanB::attack(void)
 {
-	if (this->weapon == nullptr)
+	if (this->weapon == NULL)
 		std::cout << this->name << " attack with their hands" << std::endl;
 	else
 		std::cout << this->name << " attack with their " << this->weapon->getType() << std::endl;
