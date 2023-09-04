@@ -9,6 +9,8 @@ private:
 public:
 	DiamondTrap(std::string name);
 	void whoAmI();
+	DiamondTrap(const DiamondTrap &copy);
+	DiamondTrap& operator=(const DiamondTrap &cpy);
 	~DiamondTrap();
 };
 

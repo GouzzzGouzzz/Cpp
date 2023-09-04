@@ -13,5 +13,7 @@ public:
 	void	takeDamage(unsigned int amount);
 	void	beRepaired(unsigned int	amount);
 	ClapTrap(std::string);
+	ClapTrap(const ClapTrap &copy);
+	ClapTrap& operator=(const ClapTrap &cpy);
 	~ClapTrap();
 };

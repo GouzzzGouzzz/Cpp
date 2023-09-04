@@ -8,6 +8,8 @@ public:
 	FragTrap();
 	~FragTrap();
 	void highFivesGuy(void);
+	FragTrap(const FragTrap &copy);
+	FragTrap& operator=(const FragTrap &cpy);
 };
 
 

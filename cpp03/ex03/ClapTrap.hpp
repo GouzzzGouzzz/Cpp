@@ -15,5 +15,7 @@ public:
 	void	beRepaired(unsigned int	amount);
 	ClapTrap(std::string);
 	ClapTrap();
+	ClapTrap(const ClapTrap &copy);
+	ClapTrap& operator=(const ClapTrap &cpy);
 	~ClapTrap();
 };

@@ -6,7 +6,7 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/08/30 11:47:44 by gouz             ###   ########.fr        #
+#    Updated: 2023/09/04 17:06:17 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC=c++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
-	FixedClass.cpp\
+	Fixed.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 

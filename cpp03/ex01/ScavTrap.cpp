@@ -14,6 +14,23 @@ ScavTrap::~ScavTrap()
 	std::cout << "ScavTrap destructor called\n";
 }
 
+ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap(copy._Name)
+{
+	*this = copy;
+	std::cout << "Copy constructor operator called" << std::endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_Attack_dmg = copy._Attack_dmg;
+	this->_Energy = copy._Energy;
+	this->_Hitpoints = copy._Hitpoints;
+	this->_Name = copy._Name;
+	this->_Max_hp = this->_Max_hp;
+	return *this;
+}
+
 void ScavTrap::guardGate()
 {
 	if (this->_Hitpoints > 0)
