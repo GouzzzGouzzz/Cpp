@@ -8,5 +8,6 @@ private:
 public:
 	Brain();
 	~Brain();
+	Brain(const Brain &copy);
 	Brain& operator=(const Brain &copy);
 };

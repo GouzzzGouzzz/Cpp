@@ -18,6 +18,13 @@ Cure::~Cure()
 	std::cout << "Cure destructor called\n";
 }
 
+Cure& Cure::operator=(const Cure &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_type = copy._type;
+	return *this;
+}
+
 //FUNCTIONS
 
 void Cure::use(ICharacter& target)

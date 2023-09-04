@@ -17,6 +17,20 @@ MateriaSource::~MateriaSource()
 			delete _known[i];
 }
 
+MateriaSource::MateriaSource(const MateriaSource &copy)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = copy;
+}
+
+MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	for (int i = 0; i < 3; i++)
+		this->_known[i] = copy._known[i];
+	return *this;
+}
+
 //Functions
 
 void MateriaSource::learnMateria(AMateria *type)
@@ -30,7 +44,7 @@ void MateriaSource::learnMateria(AMateria *type)
 			return ;
 		}
 	}
-	std::cout << "Couldn't learned a materia !\n";
+	std::cout << "Couldn't learn a materia !\n";
 }
 
 AMateria* MateriaSource::createMateria(std::string const &type)

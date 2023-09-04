@@ -7,6 +7,7 @@ private:
 public:
 	Cure();
 	Cure(const Cure& copy);
+	Cure& operator=(const Cure &copy);
 	~Cure();
 	virtual void use(ICharacter& target);
 	virtual AMateria* clone() const;

@@ -10,4 +10,6 @@ public:
 	~MateriaSource();
 	virtual void learnMateria(AMateria*);
 	virtual AMateria* createMateria(std::string const & type);
+	MateriaSource& operator=(const MateriaSource &copy);
+	MateriaSource(const MateriaSource &copy);
 };

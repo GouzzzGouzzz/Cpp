@@ -11,4 +11,6 @@ public:
 	std::string getType() const;
 	void setType(std::string new_type);
 	virtual void makeSound() const;
+	Animal(const Animal &copy);
+	Animal& operator=(const Animal &copy);
 };

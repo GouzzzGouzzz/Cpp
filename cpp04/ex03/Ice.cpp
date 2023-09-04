@@ -18,6 +18,12 @@ Ice::~Ice()
 	std::cout << "Ice destructor called\n";
 }
 
+Ice& Ice::operator=(const Ice &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_type = copy._type;
+	return *this;
+}
 //FUNCTIONS
 
 void Ice::use(ICharacter& target)

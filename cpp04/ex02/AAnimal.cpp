@@ -42,6 +42,6 @@ AAnimal& AAnimal::operator=(const AAnimal &copy)
 {
 	std::cout << "Copy constructor operator called\n";
 	if (this != &copy)
-		this->_type = copy._type + "truc";
+		this->_type = copy._type;
 	return (*this);
 }

@@ -12,6 +12,12 @@ Brain::~Brain()
 	std::cout << "Brain destructor called\n";
 }
 
+Brain::Brain(const Brain &copy)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = copy;
+}
+
 //OVERLOADING
 
 Brain& Brain::operator=(const Brain &copy)

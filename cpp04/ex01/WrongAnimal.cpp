@@ -12,6 +12,19 @@ WrongAnimal::~WrongAnimal()
 	std::cout << "WrongAnimal destructor called\n";
 }
 
+WrongAnimal::WrongAnimal(const WrongAnimal &copy)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = copy;
+}
+
+WrongAnimal& WrongAnimal::operator=(const WrongAnimal &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_type = copy._type;
+	return *this;
+}
+
 //SETTER/GETTER
 
 void WrongAnimal::setType(std::string new_type)

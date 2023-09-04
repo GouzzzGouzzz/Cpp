@@ -12,6 +12,19 @@ Animal::~Animal()
 	std::cout << "Animal destructor called\n";
 }
 
+Animal::Animal(const Animal &copy)
+{
+	std::cout << "Copy constructor called" << std::endl;
+	*this = copy;
+}
+
+Animal& Animal::operator=(const Animal &copy)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->_type = copy._type;
+	return *this;
+}
+
 //SETTER/GETTER
 
 std::string Animal::getType() const
