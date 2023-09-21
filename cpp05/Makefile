@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
+#    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/09/04 17:05:16 by gouz             ###   ########.fr        #
+#    Updated: 2023/09/21 17:59:19 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=fixed
+NAME=Bureaucrat
 CC=c++
 CFLAGS=-Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
-	Fixed.cpp\
+	Bureaucrat.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 

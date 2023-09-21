@@ -5,6 +5,7 @@
 
 class PhoneBook
 {
+private:
 	Contact	_contact[8];
 	int		_nb_contact;
 	int		_target;
