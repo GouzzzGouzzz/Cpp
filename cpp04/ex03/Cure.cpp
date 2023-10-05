@@ -7,10 +7,9 @@ Cure::Cure() : AMateria("cure")
 	std::cout << "Cure constructor called\n";
 }
 
-Cure::Cure(const Cure& copy) : AMateria("cure")
+Cure::Cure(const Cure &copy) : AMateria(copy)
 {
 	std::cout << "Cure copy constructor called\n";
-	*this = copy;
 }
 
 Cure::~Cure()
@@ -20,11 +19,9 @@ Cure::~Cure()
 
 Cure& Cure::operator=(const Cure &copy)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
-	this->_type = copy._type;
+	std::cout << "Cure copy assignment operator called" << std::endl;
 	return *this;
 }
-
 //FUNCTIONS
 
 void Cure::use(ICharacter& target)

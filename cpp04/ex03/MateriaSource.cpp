@@ -4,30 +4,30 @@
 
 MateriaSource::MateriaSource()
 {
-	std::cout << "MateriaSource construcotr called\n";
-	for (int i = 0; i < 3; i++)
+	std::cout << "MateriaSource constructor called\n";
+	for (int i = 0; i < 4; i++)
 		_known[i] = NULL;
 }
 
 MateriaSource::~MateriaSource()
 {
-	std::cout << "MateriaSource destrucotr called\n";
-	for (int i = 0; i < 3; i++)
-		if(_known[i])
+	std::cout << "MateriaSource destructor called\n";
+	for (int i = 0; i < 4; i++)
+		if(_known[i] != NULL)
 			delete _known[i];
 }
 
 MateriaSource::MateriaSource(const MateriaSource &copy)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "MateriaSource Copy constructor called" << std::endl;
 	*this = copy;
 }
 
 MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
-	for (int i = 0; i < 3; i++)
-		this->_known[i] = copy._known[i];
+	std::cout << "MateriaSource copy assignment operator called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		this->_known[i] = copy._known[i]->clone();
 	return *this;
 }
 
@@ -35,9 +35,9 @@ MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
 
 void MateriaSource::learnMateria(AMateria *type)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		if (!_known[i])
+		if (_known[i] == NULL)
 		{
 			_known[i] = type;
 			std::cout << "A Materia has been learned\n";
@@ -49,7 +49,7 @@ void MateriaSource::learnMateria(AMateria *type)
 
 AMateria* MateriaSource::createMateria(std::string const &type)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (_known[i] && _known[i]->getType() == type)
 			return _known[i]->clone();

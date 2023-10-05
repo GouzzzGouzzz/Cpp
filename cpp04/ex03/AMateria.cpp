@@ -14,13 +14,13 @@ AMateria::~AMateria()
 
 AMateria::AMateria(const AMateria &copy)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "AMateria copy constructor called" << std::endl;
 	*this = copy;
 }
 
 AMateria& AMateria::operator=(const AMateria &copy)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "AMateria copy assignment operator called" << std::endl;
 	this->_type = copy._type;
 	return *this;
 }

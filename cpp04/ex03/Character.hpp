@@ -6,9 +6,6 @@ class Character : public ICharacter
 private:
 	std::string _Name;
 	AMateria *_inventory[4];
-	AMateria *_onGround[100];
-	int _groundSlot;
-	bool	full_inv;
 public:
 	Character(std::string Name);
 	Character(const Character &copy);
