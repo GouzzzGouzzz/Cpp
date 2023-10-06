@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-
+#include "Form.hpp"
 //Constructor / destructor
 
 Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name)
@@ -38,6 +38,8 @@ const char *Bureaucrat::GradeTooLowException::what() const throw() { return "Gra
 int	Bureaucrat::getGrade() {return (this->_grade);}
 std::string Bureaucrat::getName() { return (this->_name);}
 
+//Functions
+
 void Bureaucrat::increaseGrade()
 {
 	if (this->_grade < 1)
@@ -54,10 +56,29 @@ void Bureaucrat::decreaseGrade()
 		throw Bureaucrat::GradeTooLowException();
 }
 
+void Bureaucrat::signForm(Form &obj)
+{
+	if (obj.getSigned() == true)
+		std::cout << this->_name << " couldn’t sign " << obj.getName()  << " because it is already signed\n";
+	else
+	{
+		try
+		{
+			obj.beSigned(*this);
+			std::cout << this->_name << " signed " << obj.getName() << "\n";
+		}
+		catch(std::exception &e)
+		{
+			std::cerr << this->_name << " couldn’t sign " << obj.getName()  << " because : ";
+			std::cerr << e.what() << '\n';
+		}
+	}
+}
+
 // Additional overload
 
 std::ostream& operator<<(std::ostream& os, Bureaucrat& obj)
 {
-	os << obj.getName() << ", bureaucrat grade " << obj.getGrade();
+	os << obj.getName() << ", bureaucrat grade " << obj.getGrade() << "\n";
 	return os;
 }

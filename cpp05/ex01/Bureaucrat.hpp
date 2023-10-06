@@ -1,6 +1,9 @@
 #pragma once
-#include <iostream>
-#include <exception>
+# include <iostream>
+# include <exception>
+# include "Form.hpp"
+
+class Form;
 
 class Bureaucrat
 {
@@ -26,6 +29,7 @@ public:
 	int getGrade();
 	void increaseGrade();
 	void decreaseGrade();
+	void signForm(Form &obj);
 };
 
 std::ostream& operator<<(std::ostream& os, Bureaucrat& obj);
