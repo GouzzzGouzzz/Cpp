@@ -16,7 +16,7 @@ Brain::~Brain()
 
 Brain& Brain::operator=(const Brain &copy)
 {
-	std::cout << "Copy constructor operator called\n";
+	std::cout << "Brain copy constructor operator called\n";
 	if (this != &copy)
 		*(this)->_ideas = *(copy)._ideas;
 	return (*this);
