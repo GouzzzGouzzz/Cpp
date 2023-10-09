@@ -42,7 +42,7 @@ std::string Bureaucrat::getName() { return (this->_name);}
 
 void Bureaucrat::increaseGrade()
 {
-	if (this->_grade < 1)
+	if (this->_grade > 1)
 		this->_grade--;
 	else
 		throw Bureaucrat::GradeTooHighException();

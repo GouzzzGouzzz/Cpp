@@ -6,17 +6,20 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/10/09 13:33:24 by gouz             ###   ########.fr        #
+#    Updated: 2023/10/09 16:54:00 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=Bureaucrat
+NAME=MoreForm
 CC=c++
 CFLAGS=-g -Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
 	Bureaucrat.cpp\
-	Form.cpp
+	AForm.cpp\
+	RobotomyRequestForm.cpp\
+	ShrubberyCreationForm.cpp\
+	PresidentialPardonForm.cpp
 
 OBJ=$(FILES:.cpp=.o)
 
