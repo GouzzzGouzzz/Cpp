@@ -12,13 +12,13 @@ ScalarConverter::ScalarConverter(ScalarConverter &copy)
 {
 	std::cout << "ScalarConverter constructor called (copy constructor)\n";
 	(void) copy;
-	ScalarConverter();
+	//ScalarConverter();
 }
 
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter &copy)
 {
 	std::cout << "ScalarConverter constructor called (copy assignement)\n";
-	*this = copy;
+	(void)copy;
 	return *this;
 }
 

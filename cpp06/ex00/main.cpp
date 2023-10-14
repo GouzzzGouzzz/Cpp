@@ -7,6 +7,8 @@ int main(int ac, char **ag)
 		return 0;
 	}
 	ScalarConverter bob;
-
+	ScalarConverter tobi = bob;
+	ScalarConverter bot(bob);
+	tobi = bot;
 	bob.convert(ag[1]);
 }
