@@ -1,5 +1,5 @@
 #include "ScalarConverter.hpp"
-#include <limits.h>
+#include <limits>
 #include <stdlib.h>
 //Constructor / destructor
 
@@ -29,27 +29,53 @@ ScalarConverter::~ScalarConverter()
 
 void toChar(std::string convert)
 {
-	char temp = static_cast<char>(convert[0]);
-	if (convert.length() != 1)
-		std::cout << "Char : Doesn't make sense !\n";
-	else if (temp < 32 || temp > 126)
+	int temp = atoi(convert.c_str());
+	if (temp < 32 || temp > 126)
 		std::cout << "Char: Non displayable\n";
 	else
-		std::cout << "Char: " << temp << "\n";
+		std::cout << "Char: " << static_cast<char>(temp) << "\n";
 }
 
 void toInt(double val)
 {
-	if (val > INT_MAX || val < INT_MIN)
+	if (val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::min())
 		std::cout << "Int: Overflow / Underflow\n";
 	else
 		std::cout << "Int: " << static_cast<int>(val) << "\n";
 }
 
+void toDouble(double temp)
+{
+	std::cout << "Double: " << temp;
+	if (temp - (int) temp == 0)
+		std::cout << ".0\n";
+	else
+		std::cout << "\n";
+}
+
+void toFloat(double temp)
+{
+	std::cout << "Float: " << static_cast<float>(temp);
+	if (temp - (int) temp == 0)
+		std::cout << ".0f\n";
+	else
+		std::cout << "f\n";
+}
+
 double fromChar(std::string convert)
 {
-	char temp = static_cast<char>(convert[0]);
-	return (static_cast<double>(temp));
+	std::cout << "Char :" << static_cast<char>(convert[0]) << "\n";
+	return (static_cast<double>(convert[0]));
+}
+
+int check_nan(std::string convert)
+{
+	if (convert == "nan" || convert == "nanf")
+	{
+		std::cout <<"Char: impossible\nInt: impossible\nFloat: nanf\nDouble: nan\n";
+		return 1;
+	}
+	return (-1);
 }
 
 void ScalarConverter::convert(std::string convert)
@@ -57,10 +83,13 @@ void ScalarConverter::convert(std::string convert)
 	double temp;
 
 	temp = strtod(convert.c_str(), NULL);
+	if (check_nan(convert) == 1)
+		return ;
 	if (convert.find_first_of("0123456789") > convert.length())
-		temp = static_cast<double>(convert[0]);
-	toChar(convert);
+		temp = fromChar(convert);
+	else
+		toChar(convert);
 	toInt(temp);
-	std::cout << "Float: " << static_cast<float>(temp) <<
-	"\nDouble: " << temp << "\n";
+	toFloat(temp);
+	toDouble(temp);
 }
