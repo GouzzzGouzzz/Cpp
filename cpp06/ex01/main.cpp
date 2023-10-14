@@ -1,5 +1,10 @@
+#include "Serialize.hpp"
 
-int main(int ac, char **ag)
+int main()
 {
-
+	Data test("truc", 10);
+	Serialize truc;
+	Data *ptr;
+	test.getInfo();
+	
 }

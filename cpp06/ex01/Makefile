@@ -6,15 +6,17 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/10/14 15:24:48 by gouz             ###   ########.fr        #
+#    Updated: 2023/10/15 00:56:49 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=convert
+NAME=Serialize
 CC=c++
-CFLAGS=-g -Wall -Werror -Wextra -std=c++98 -Wno-unused
+CFLAGS=-g -Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
+	Data.cpp\
+	Serialize.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
