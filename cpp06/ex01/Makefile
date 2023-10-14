@@ -6,16 +6,15 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/10/14 15:24:30 by gouz             ###   ########.fr        #
+#    Updated: 2023/10/14 15:24:48 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=convert
 CC=c++
-CFLAGS=-g -Wall -Werror -Wextra -std=c++98
+CFLAGS=-g -Wall -Werror -Wextra -std=c++98 -Wno-unused
 
 FILES=main.cpp\
-	ScalarConverter.cpp\
 
 OBJ=$(FILES:.cpp=.o)
 
