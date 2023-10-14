@@ -27,7 +27,7 @@ ScalarConverter::~ScalarConverter()
 	std::cout << "ScalarConverter destructor called\n";
 }
 
-void toChar(std::string convert)
+static void toChar(std::string convert)
 {
 	int temp = atoi(convert.c_str());
 	if (temp < 32 || temp > 126)
@@ -36,7 +36,7 @@ void toChar(std::string convert)
 		std::cout << "Char: " << static_cast<char>(temp) << "\n";
 }
 
-void toInt(double val)
+static void toInt(double val)
 {
 	if (val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::min())
 		std::cout << "Int: Overflow / Underflow\n";
@@ -44,7 +44,7 @@ void toInt(double val)
 		std::cout << "Int: " << static_cast<int>(val) << "\n";
 }
 
-void toDouble(double temp)
+static void toDouble(double temp)
 {
 	std::cout << "Double: " << temp;
 	if (temp - (int) temp == 0)
@@ -53,7 +53,7 @@ void toDouble(double temp)
 		std::cout << "\n";
 }
 
-void toFloat(double temp)
+static void toFloat(double temp)
 {
 	std::cout << "Float: " << static_cast<float>(temp);
 	if (temp - (int) temp == 0)
@@ -62,13 +62,13 @@ void toFloat(double temp)
 		std::cout << "f\n";
 }
 
-double fromChar(std::string convert)
+static double fromChar(std::string convert)
 {
 	std::cout << "Char :" << static_cast<char>(convert[0]) << "\n";
 	return (static_cast<double>(convert[0]));
 }
 
-int check_nan(std::string convert)
+static int check_nan(std::string convert)
 {
 	if (convert == "nan" || convert == "nanf")
 	{
