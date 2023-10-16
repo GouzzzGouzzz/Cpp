@@ -8,8 +8,9 @@
 int main()
 {
 	AMateria *ice = new Ice();
-	AMateria *ice2 = ice; // not a deep copy
-	ICharacter *joe = new Character("joe");
+	AMateria *ice2 = ice; // not a deep copy;
+	std::cout << "\nEND OF CONSTRUCT\n\n";
+ 	ICharacter *joe = new Character("joe");
 	ICharacter *bot = new Character("Bot");
 	MateriaSource source;
 
@@ -17,7 +18,7 @@ int main()
 
 	std::cout << "\nTESTING ALL ERROR\n\n";
 	joe->equip(NULL);
-	joe->equip(ice);
+	joe->equip(ice2);
 	joe->equip(ice);
 	joe->equip(ice);
 	joe->equip(ice);

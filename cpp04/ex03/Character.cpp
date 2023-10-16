@@ -36,7 +36,6 @@ const std::string& Character::getName() const
 
 void Character::equip(AMateria* m)
 {
-	bool is_full = false;
 	if (!m)
 	{
 		std::cout << "Couldn't equip this item !\n";

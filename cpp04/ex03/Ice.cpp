@@ -9,7 +9,7 @@ Ice::Ice() : AMateria("ice")
 
 Ice::Ice(const Ice& copy) : AMateria(copy)
 {
-	std::cout << "Ice copy constructor called\n";
+	std::cout << "Ice copy constructor called\n" << std::endl;
 }
 
 Ice::~Ice()
@@ -20,6 +20,7 @@ Ice::~Ice()
 Ice& Ice::operator=(const Ice &copy)
 {
 	std::cout << "Ice copy assignment operator called" << std::endl;
+	(void)copy;
 	return *this;
 }
 //FUNCTIONS

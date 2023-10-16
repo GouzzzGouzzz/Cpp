@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
+#    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/10/05 15:59:23 by gouz             ###   ########.fr        #
+#    Updated: 2023/10/16 14:54:33 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=AbstractClass
+NAME=Amateria
 CC=c++
-CFLAGS=-g #-Wall -Werror -Wextra -std=c++98
+CFLAGS=-g -Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
 	AMateria.cpp\
