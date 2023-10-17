@@ -17,7 +17,14 @@ int main()
 	delete i;
 	delete j;
 	delete meta; */
- 	const Animal* array[6] = {new Dog(), new Dog(), new Dog(), new Cat(), new Cat(), new Cat()};
+  	const Animal* array[6] = {new Dog(), new Dog(), new Dog(), new Cat(), new Cat(), new Cat()};
+	for (int i = 0; i < 6; i++)
+		std::cout << array[i]->getType() << "\n";
+
+	Brain t;
+
+	t.setIdea("truc");
+	std::cout << t.getIdea() << "\n";
 	for (int i = 0; i < 6; i++)
 		delete array[i];
 	const Dog *t1 = new Dog();

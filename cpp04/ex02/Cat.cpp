@@ -12,9 +12,9 @@ Cat::Cat() : AAnimal()
 
 Cat::Cat(const Cat &copy) : AAnimal()
 {
-	std::cout << "Copy constructor called\n";
-	this->_type = copy._type;
+	std::cout << "Cat copy constructor called\n";
 	this->_brain = new Brain();
+	*this = copy;
 }
 
 Cat::~Cat()
@@ -34,11 +34,11 @@ void Cat::makeSound() const
 
 Cat& Cat::operator=(const Cat &copy)
 {
-	std::cout << "Copy constructor operator called\n";
+	std::cout << "Cat copy constructor operator called\n";
 	if (this == &copy)
 		return (*this);
+	delete this->_brain;
 	this->_brain = new Brain();
-	for (int i = 0; i < 100; i++)
-		this->_brain[i] = copy._brain[i];
+	this->_brain->setIdea(copy._brain->getIdea());
 	return (*this);
 }

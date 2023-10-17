@@ -25,9 +25,10 @@ MateriaSource::MateriaSource(const MateriaSource &copy)
 
 MateriaSource& MateriaSource::operator=(const MateriaSource &copy)
 {
-	std::cout << "MateriaSource copy assignment operator called" << std::endl;
+	std::cout << "MateriaSource copy assignment operator called (Pointer in self will be lost, keep track on them before calling this)" << std::endl;
 	for (int i = 0; i < 4; i++)
-		this->_known[i] = copy._known[i]->clone();
+		if (copy._known[i] != NULL)
+			this->_known[i] = copy._known[i]->clone();
 	return *this;
 }
 

@@ -10,4 +10,6 @@ public:
 	~Brain();
 	Brain(const Brain &copy);
 	Brain& operator=(const Brain &copy);
+	void setIdea(std::string idea);
+	std::string getIdea(void);
 };

@@ -15,13 +15,13 @@ Dog::~Dog()
 
 Dog::Dog(const Dog &copy) : Animal()
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "Dog copy constructor called" << std::endl;
 	*this = copy;
 }
 
 Dog& Dog::operator=(const Dog &copy)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	std::cout << "Dog copy assignment operator called" << std::endl;
 	this->_type = copy._type;
 	return *this;
 }
