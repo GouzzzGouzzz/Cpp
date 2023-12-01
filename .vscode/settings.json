@@ -52,7 +52,8 @@
 		"numbers": "cpp",
 		"cinttypes": "cpp",
 		"ranges": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"list": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }
