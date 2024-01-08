@@ -38,7 +38,6 @@ public:
 			this->store.push_back(std::rand());
 			first++;
 		}
-
 	}
 	int shortestSpan() const;
 	int longestSpan() const;
