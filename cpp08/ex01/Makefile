@@ -6,11 +6,11 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/12/01 16:01:54 by gouz             ###   ########.fr        #
+#    Updated: 2024/01/08 19:21:44 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=easyfind
+NAME=Span
 CC=c++
 CFLAGS=-Wall -Werror -Wextra -g -std=c++98
 
