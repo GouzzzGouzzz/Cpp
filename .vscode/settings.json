@@ -53,7 +53,8 @@
 		"cinttypes": "cpp",
 		"ranges": "cpp",
 		"span": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"map": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }
