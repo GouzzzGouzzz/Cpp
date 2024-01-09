@@ -42,6 +42,7 @@ void BitcoinExchange::fillDB()
 	}
 	while (std::getline(db,buffer,'\n'))
 	{
+		//will need more check for sure
 		if (buffer.find(",") != std::string::npos)
 		{
 			value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
@@ -63,7 +64,10 @@ void BitcoinExchange::operate(std::string filename)
 	}
 	while (std::getline(file,buffer,'\n'))
 	{
-
+		//here we check if the line is ok
+		//then we check if the date is in the database
+		//if not, take the closest
+		//then proceed to output
 	}
 	file.close();
 }
