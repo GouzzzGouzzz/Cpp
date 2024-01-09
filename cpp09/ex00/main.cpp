@@ -7,5 +7,6 @@ int main(int ac, char **ag)
 		std::cout << "1 paramater is needed, not more, not less !\n";
 		return -1;
 	}
-	BitcoinExchange temp(static_cast<std::string>(ag[1]));
+	BitcoinExchange temp();
+	temp.operate();
 }

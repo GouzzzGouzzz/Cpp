@@ -4,13 +4,16 @@
 #include <fstream>
 #include <cstdlib>
 
+
 class BitcoinExchange
 {
 private:
 	std::map<std::string, float> database;
-	std::map<std::string, float> request;
-	void fillInfo(std::string filename);
+	void fillDB();
 public:
-	BitcoinExchange(std::string);
+	BitcoinExchange();
+	BitcoinExchange(const BitcoinExchange &copy);
+	BitcoinExchange& operator=(const BitcoinExchange &cpy);
 	~BitcoinExchange();
+	void operate(std::string filename);
 };

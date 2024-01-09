@@ -1,34 +1,38 @@
 #include "BitcoinExchange.hpp"
 
-void BitcoinExchange::fillInfo(std::string filename)
+BitcoinExchange::BitcoinExchange()
 {
-	std::ifstream infile (filename.c_str());
+	std::cout << "BitcoinExchange created\n";
+	fillDB();
+}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
+{
+	std::cout << "BitcoinExchange created with copy constructor\n";
+	this->database = copy.database;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &copy)
+{
+	std::cout << "BitcoinExchange created with operator constructor\n";
+	this->database = copy.database;
+	return *this;
+}
+
+BitcoinExchange::~BitcoinExchange()
+{
+	std::cout << "BitcoinExchange deleted\n";
+}
+
+void BitcoinExchange::fillDB()
+{
 	std::ifstream db ("data.csv");
 	std::string buffer;
-	float temp;
-	if (!infile || !db)
+	float value;
+	if (!db)
 	{
-		if (infile.is_open())
-			infile.close();
-		if (db.is_open())
-			db.close();
-		std::cout << "Failed to open a file\n";
+		std::cout << "Failed to open database file\n";
 		return ;
-	}
-	std::getline(infile,buffer,'\n');
-	if (buffer != "date | value")
-	{
-		std::cout << "Invalid format for infile:" << buffer << std::endl;
-		return ;
-	}
-	while (std::getline(infile,buffer,'\n'))
-	{
-		//need check error for valid date
-		if (buffer.find("|") != std::string::npos)
-		{
-			temp = std::strtof(buffer.substr(buffer.find("|")+1).c_str(), NULL);
-			this->request.insert(std::pair<std::string, float>(buffer.substr(0, buffer.find("|")), temp));
-		}
 	}
 	std::getline(db,buffer,'\n');
 	if (buffer != "date,exchange_rate")
@@ -40,19 +44,26 @@ void BitcoinExchange::fillInfo(std::string filename)
 	{
 		if (buffer.find(",") != std::string::npos)
 		{
-			temp = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
+			value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
 			this->database.insert(std::pair<std::string, float>(buffer.substr(0, buffer.find(",")), temp));
 		}
 	}
+	db.close();
 }
 
-BitcoinExchange::BitcoinExchange(std::string filename)
+void BitcoinExchange::operate(std::string filename)
 {
-	std::cout << "BitcoinExchange created\n";
-	fillInfo(filename);
-}
+	std::ifstream file(filename);
+	std::string buffer;
+	float value;
+	if (!file.is_open())
+	{
+		std::cout << "Failed to open file:" << filename << std::endl;
+		return
+	}
+	while (std::getline(file,buffer,'\n'))
+	{
 
-BitcoinExchange::~BitcoinExchange()
-{
-	std::cout << "BitcoinExchange deleted\n";
+	}
+	file.close();
 }
