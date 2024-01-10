@@ -6,13 +6,13 @@
 #    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2024/01/09 16:10:01 by gouz             ###   ########.fr        #
+#    Updated: 2024/01/10 17:54:18 by gouz             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=btc
 CC=c++
-CFLAGS=-Wall -Werror -Wextra -g -std=c++98
+CFLAGS=-g -std=c++98
 
 FILES=main.cpp\
 	BitcoinExchange.cpp
