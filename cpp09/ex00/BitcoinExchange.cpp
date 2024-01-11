@@ -68,8 +68,8 @@ void BitcoinExchange::fillDB()
 				this->_is_valid = 7;
 			if (this->_is_valid != 0)
 			{
-				std::cout << "| line :" << line << " | ";
-				output_error("Database ");
+				std::cout << "| line :" << line << " | Database";
+				output_error();
 				break;
 			}
 			this->database.insert(std::pair<std::string, float>(date, value));
@@ -130,30 +130,30 @@ void BitcoinExchange::check_date(std::string date)
 }
 
 
-void BitcoinExchange::output_error(std::string db) const
+void BitcoinExchange::output_error() const
 {
 	switch (this->_is_valid)
 	{
 	case 1:
-		std::cout << db <<"Error : Invalid year format" << std::endl;
+		std::cout << "Error : Invalid year format" << std::endl;
 		break;
 	case 2:
-		std::cout <<  db << "Error : Invalid month format" << std::endl;
+		std::cout << "Error : Invalid month format" << std::endl;
 		break;
 	case 3:
-		std::cout <<  db << "Error : Invalid day format" << std::endl;
+		std::cout << "Error : Invalid day format" << std::endl;
 		break;
 	case 4:
-		std::cout <<  db << "Error : Invalid format" << std::endl;
+		std::cout << "Error : Invalid format" << std::endl;
 		break;
 	case 5:
-		std::cout <<  db << "Error : not a positive number" << std::endl;
+		std::cout << "Error : not a positive number" << std::endl;
 		break;
 	case 6:
-		std::cout <<  db << "Error : too large a number" << std::endl;
+		std::cout << "Error : too large a number" << std::endl;
 		break;
 	case 7:
-		std::cout <<  db << "Error : Invalid date" << std::endl;
+		std::cout << "Error : Invalid date" << std::endl;
 		break;
 	default:
 		break;
