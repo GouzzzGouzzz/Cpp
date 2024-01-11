@@ -5,6 +5,7 @@ BitcoinExchange::BitcoinExchange()
 	std::cout << "BitcoinExchange created\n";
 	fillDB();
 	this->_is_valid = false;
+	this->init = false;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
@@ -12,6 +13,7 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 	std::cout << "BitcoinExchange created with copy constructor\n";
 	this->database = copy.database;
 	this->_is_valid = false;
+	this->init = true;
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &copy)
@@ -19,6 +21,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &copy)
 	std::cout << "BitcoinExchange created with operator constructor\n";
 	this->database = copy.database;
 	this->_is_valid = false;
+	this->init = true;
 	return *this;
 }
 
@@ -29,8 +32,8 @@ BitcoinExchange::~BitcoinExchange()
 
 void BitcoinExchange::fillDB()
 {
-	std::ifstream db ("data.csv");
-	std::string buffer;
+	std::ifstream db ("datacp.csv");
+	std::string buffer, date;
 	float value;
 	if (!db)
 	{
@@ -46,14 +49,22 @@ void BitcoinExchange::fillDB()
 	}
 	while (std::getline(db,buffer,'\n'))
 	{
-		//will need more check
+		this->_is_valid = 0;
 		if (buffer.find(",") != std::string::npos && std::count(buffer.begin(), buffer.end(), ',') == 1)
 		{
+			date = buffer.substr(0, buffer.find(","));
+			check_date(date);
+			output_error("Database ");
 			value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
-			this->database.insert(std::pair<std::string, float>(buffer.substr(0, buffer.find(",")), value));
+			if (value < 0)
+				this->_is_valid = 5;
+			if (this->_is_valid != 0)
+				break;
+			this->database.insert(std::pair<std::string, float>(date, value));
 		}
 	}
 	db.close();
+	this->init = true;
 }
 
 int BitcoinExchange::get_date(std::string buffer) const
@@ -76,30 +87,58 @@ int BitcoinExchange::get_date(std::string buffer) const
 	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year);
 }
 
-void BitcoinExchange::output_error() const
+
+void BitcoinExchange::check_date(std::string date)
+{
+	if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
+	{
+		if (date[4] != '-' || date[7] != '-')
+			this->_is_valid = 1;
+		else
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				if (i < 4)
+					if (isdigit(date[i]) == 0)
+						this->_is_valid = 1;
+				if (i > 4 && i < 7)
+					if (isdigit(date[i]) == 0)
+						this->_is_valid = 2;
+				if (i > 7)
+					if (isdigit(date[i]) == 0)
+						this->_is_valid = 3;
+			}
+		}
+	}
+	else
+		this->_is_valid = 4;
+}
+
+
+void BitcoinExchange::output_error(std::string db) const
 {
 	switch (this->_is_valid)
 	{
 	case 1:
-		std::cout << "Error : Invalid year format" << std::endl;
+		std::cout << db <<"Error : Invalid year format" << std::endl;
 		break;
 	case 2:
-		std::cout << "Error : Invalid month format" << std::endl;
+		std::cout <<  db << "Error : Invalid month format" << std::endl;
 		break;
 	case 3:
-		std::cout << "Error : Invalid day format" << std::endl;
+		std::cout <<  db << "Error : Invalid day format" << std::endl;
 		break;
 	case 4:
-		std::cout << "Error : Invalid format" << std::endl;
+		std::cout <<  db << "Error : Invalid format" << std::endl;
 		break;
 	case 5:
-		std::cout << "Error : not a positive number" << std::endl;
+		std::cout <<  db << "Error : not a positive number" << std::endl;
 		break;
 	case 6:
-		std::cout << "Error : too large a number" << std::endl;
+		std::cout <<  db << "Error : too large a number" << std::endl;
 		break;
 	case 7:
-		std::cout << "Error : Invalid date" << std::endl;
+		std::cout <<  db << "Error : Invalid date" << std::endl;
 		break;
 	default:
 		break;
@@ -110,8 +149,9 @@ void BitcoinExchange::operate(std::string filename)
 {
 	std::ifstream file(filename.c_str());
 	std::string buffer, date;
-
 	float value;
+	if (this->init == false)
+		return;
 	if (!file.is_open())
 	{
 		std::cout << "Failed to open file:" << filename << std::endl;
@@ -134,33 +174,12 @@ void BitcoinExchange::operate(std::string filename)
 
 			value = std::strtof(buffer.substr(buffer.find("|")+1).c_str(), NULL);
 			date = buffer.substr(0, buffer.find("|")-1);
-			if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
-			{
-				if (date[4] != '-' || date[7] != '-')
-					this->_is_valid = 1;
-				else
-				{
-					for (int i = 0; i < 10; i++)
-					{
-						if (i < 4)
-							if (isdigit(date[i]) == 0)
-								this->_is_valid = 1;
-						if (i > 4 && i < 7)
-							if (isdigit(date[i]) == 0)
-								this->_is_valid = 2;
-						if (i > 7)
-							if (isdigit(date[i]) == 0)
-								this->_is_valid = 3;
-					}
-				}
-			}
-			else
-				this->_is_valid = 4;
+			check_date(date);
 			if (value < 0)
 				this->_is_valid = 5;
 			else if (value > 1000)
 				this->_is_valid = 6;
-			output_error();
+			output_error("");
 			if (this->_is_valid == 0 && this->database.find(date) != this->database.end())
 				std::cout << date << "=> " << value << " = " << value * this->database.at(date) << std::endl;
 			else if (this->_is_valid == 0)
@@ -185,7 +204,7 @@ void BitcoinExchange::operate(std::string filename)
 						low_diff = get_date(low) - day_date;
 						forced_diff = day_date - get_date(forced_lower);
 					}
-					output_error();
+					output_error("");
 					if (forced_diff < low_diff && this->_is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * (*rit).second << std::endl;
 					else if (this->_is_valid == 0)
