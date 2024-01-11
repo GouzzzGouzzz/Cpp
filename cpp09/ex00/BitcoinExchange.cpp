@@ -4,18 +4,21 @@ BitcoinExchange::BitcoinExchange()
 {
 	std::cout << "BitcoinExchange created\n";
 	fillDB();
+	this->is_valid = false;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
 	std::cout << "BitcoinExchange created with copy constructor\n";
 	this->database = copy.database;
+	this->is_valid = false;
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
 	std::cout << "BitcoinExchange created with operator constructor\n";
 	this->database = copy.database;
+	this->is_valid = false;
 	return *this;
 }
 
@@ -48,10 +51,59 @@ void BitcoinExchange::fillDB()
 		{
 			value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
 			this->database.insert(std::pair<std::string, float>(buffer.substr(0, buffer.find(",")), value));
-			//std::cout << "ADDED:" << buffer.substr(0, buffer.find(",")) << "WITH VAL:" << this->database.at(buffer.substr(0, buffer.find(","))) << std::endl;
 		}
 	}
 	db.close();
+}
+
+int BitcoinExchange::get_date(std::string buffer) const
+{
+	int tab[3];
+	int leap_year = 0;
+	tab[0]=atoi(buffer.substr(0,4).c_str());
+	tab[1]=atoi(buffer.substr(5,7).c_str());
+	tab[2]=atoi(buffer.substr(8,10).c_str());
+	if (tab[0] % 400 == 0)
+		leap_year = 1;
+	else if (tab[0] % 100 == 0)
+		leap_year = 0;
+	else if (tab[0] % 4 == 0)
+		leap_year = 1;
+	if (tab[1] < 1 || tab[1] > 12)
+		return -1;
+	if (tab[2] < 1 || tab[2] > 31)
+		return -1;
+	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year);
+}
+
+void BitcoinExchange::output_error() const
+{
+	switch (this->is_valid)
+	{
+	case 1:
+		std::cout << "Error : Invalid year format" << std::endl;
+		break;
+	case 2:
+		std::cout << "Error : Invalid month format" << std::endl;
+		break;
+	case 3:
+		std::cout << "Error : Invalid day format" << std::endl;
+		break;
+	case 4:
+		std::cout << "Error : Invalid format" << std::endl;
+		break;
+	case 5:
+		std::cout << "Error : not a positive number" << std::endl;
+		break;
+	case 6:
+		std::cout << "Error : too large a number" << std::endl;
+		break;
+	case 7:
+		std::cout << "Error : Invalid date" << std::endl;
+		break;
+	default:
+		break;
+	}
 }
 
 void BitcoinExchange::operate(std::string filename)
@@ -74,29 +126,44 @@ void BitcoinExchange::operate(std::string filename)
 	}
 	while (std::getline(file,buffer,'\n'))
 	{
+		this->is_valid = 0;
 		if (buffer.find("|") != std::string::npos && std::count(buffer.begin(), buffer.end(),'|') == 1)
 		{
-			bool is_valid = true;
 			std::string low, forced_lower;
 			std::map<std::string, float>::reverse_iterator rit;
 
 			value = std::strtof(buffer.substr(buffer.find("|")+1).c_str(), NULL);
 			date = buffer.substr(0, buffer.find("|")-1);
-			if (value < 0)//need check que : xxxx-xx-xx et pas autrement
+			if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
 			{
-				std::cout << "Error: not a positivie number." << std::endl;
-				is_valid = false;
+				if (date[4] != '-' || date[7] != '-')
+					this->is_valid = 1;
+				else
+				{
+					for (int i = 0; i < 10; i++) // check les valeurs jour = 99
+					{
+						if (i < 4)
+							if (isdigit(date[i]) == 0)
+								this->is_valid = 1;
+						if (i > 4 && i < 7)
+							if (isdigit(date[i]) == 0)
+								this->is_valid = 2;
+						if (i > 7)
+							if (isdigit(date[i]) == 0)
+								this->is_valid = 3;
+					}
+				}
 			}
+			else
+				this->is_valid = 4;
+			if (value < 0)
+				this->is_valid = 5;
 			else if (value > 1000)
-			{
-				std::cout << "Error: too large a number." << std::endl;
-				is_valid = false;
-			}
-			if (is_valid == true && this->database.find(date) != this->database.end())//la date exact est trouvée
-			{
+				this->is_valid = 6;
+			output_error();
+			if (this->is_valid == 0 && this->database.find(date) != this->database.end())
 				std::cout << date << "=> " << value << " = " << value * this->database.at(date) << std::endl;
-			}
-			else if (is_valid == true)// ont prend la plus proche autrement
+			else if (this->is_valid == 0)
 			{
 				low = this->database.lower_bound(date)->first;
 				if (low != this->database.begin()->first)
@@ -110,24 +177,18 @@ void BitcoinExchange::operate(std::string filename)
 							break;
 						}
 					}
-					// ont converti les dates : 2000-12-02 en jour pour calculer la diff en jour par rapport la date en input
-					int low_date[3], forced_date[3], requested[3], low_diff, forced_diff, day_date;
-					low_date[0]=atoi(low.substr(0,4).c_str());
-					low_date[1]=atoi(low.substr(5,7).c_str());
-					low_date[2]=atoi(low.substr(8,10).c_str());
-					forced_date[0]=atoi(forced_lower.substr(0,4).c_str());
-					forced_date[1]=atoi(forced_lower.substr(5,7).c_str());
-					forced_date[2]=atoi(forced_lower.substr(8,10).c_str());
-					requested[0]=atoi(date.substr(0,4).c_str());
-					requested[1]=atoi(date.substr(5,7).c_str());
-					requested[2]=atoi(date.substr(8,10).c_str());
-					//need prendre en comptes les annees bisextiles (avec modulo 4 je crois)
-					day_date = 365 * requested[0] + 30 * requested[1] + requested[2];
-					low_diff = 365 * low_date[0] + 30 * low_date[1] + low_date[2] - day_date;
-					forced_diff = day_date - (365 * forced_date[0] + 30 * forced_date[1] + forced_date[2]);
-					if (forced_diff < low_diff)
+					int low_diff, forced_diff, day_date;
+					if (get_date(date) == -1 || get_date(low) == -1 || get_date(forced_lower) == -1)
+						this->is_valid = 7;
+					else{
+						day_date = get_date(date);
+						low_diff = get_date(low) - day_date;
+						forced_diff = day_date - get_date(forced_lower);
+					}
+					output_error();
+					if (forced_diff < low_diff && this->is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * (*rit).second << std::endl;
-					else
+					else if (this->is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
 				}
 			}
