@@ -3,9 +3,9 @@
 BitcoinExchange::BitcoinExchange()
 {
 	std::cout << "BitcoinExchange created\n";
-	fillDB();
-	this->_is_valid = false;
 	this->init = false;
+	this->_is_valid = false;
+	fillDB();
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
@@ -32,9 +32,9 @@ BitcoinExchange::~BitcoinExchange()
 
 void BitcoinExchange::fillDB()
 {
-	std::ifstream db ("datacp.csv");
+	std::ifstream db ("data.csv");
 	std::string buffer, date;
-	float value;
+	float value = 0;
 	if (!db)
 	{
 		std::cout << "Failed to open database file\n";
@@ -50,21 +50,29 @@ void BitcoinExchange::fillDB()
 	while (std::getline(db,buffer,'\n'))
 	{
 		this->_is_valid = 0;
-		if (buffer.find(",") != std::string::npos && std::count(buffer.begin(), buffer.end(), ',') == 1)
+		if (buffer.find(",") != std::string::npos)
 		{
 			date = buffer.substr(0, buffer.find(","));
+			if (std::count(buffer.begin(), buffer.end(), ',') != 1)
+				this->_is_valid = 4;
+			if (buffer[buffer.find(',')+1] == ' ')
+				this->_is_valid = 4;
 			check_date(date);
-			output_error("Database ");
-			value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
+			if (this->_is_valid == 0)
+				value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
 			if (value < 0)
 				this->_is_valid = 5;
+			output_error("Database ");
 			if (this->_is_valid != 0)
 				break;
 			this->database.insert(std::pair<std::string, float>(date, value));
 		}
+		else
+			std::cout << "Database Error : Invalid format" << std::endl;
 	}
 	db.close();
-	this->init = true;
+	if (this->_is_valid == 0)
+		this->init = true;
 }
 
 int BitcoinExchange::get_date(std::string buffer) const
