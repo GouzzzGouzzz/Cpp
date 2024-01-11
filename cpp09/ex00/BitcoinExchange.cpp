@@ -126,7 +126,7 @@ void BitcoinExchange::operate(std::string filename)
 	}
 	while (std::getline(file,buffer,'\n'))
 	{
-		this->is_valid = 0;
+		this->_is_valid = 0;
 		if (buffer.find("|") != std::string::npos && std::count(buffer.begin(), buffer.end(),'|') == 1)
 		{
 			std::string low, forced_lower;
@@ -137,33 +137,33 @@ void BitcoinExchange::operate(std::string filename)
 			if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
 			{
 				if (date[4] != '-' || date[7] != '-')
-					this->is_valid = 1;
+					this->_is_valid = 1;
 				else
 				{
 					for (int i = 0; i < 10; i++) // check les valeurs jour = 99
 					{
 						if (i < 4)
 							if (isdigit(date[i]) == 0)
-								this->is_valid = 1;
+								this->_is_valid = 1;
 						if (i > 4 && i < 7)
 							if (isdigit(date[i]) == 0)
-								this->is_valid = 2;
+								this->_is_valid = 2;
 						if (i > 7)
 							if (isdigit(date[i]) == 0)
-								this->is_valid = 3;
+								this->_is_valid = 3;
 					}
 				}
 			}
 			else
-				this->is_valid = 4;
+				this->_is_valid = 4;
 			if (value < 0)
-				this->is_valid = 5;
+				this->_is_valid = 5;
 			else if (value > 1000)
-				this->is_valid = 6;
+				this->_is_valid = 6;
 			output_error();
-			if (this->is_valid == 0 && this->database.find(date) != this->database.end())
+			if (this->_is_valid == 0 && this->database.find(date) != this->database.end())
 				std::cout << date << "=> " << value << " = " << value * this->database.at(date) << std::endl;
-			else if (this->is_valid == 0)
+			else if (this->_is_valid == 0)
 			{
 				low = this->database.lower_bound(date)->first;
 				if (low != this->database.begin()->first)
@@ -179,16 +179,16 @@ void BitcoinExchange::operate(std::string filename)
 					}
 					int low_diff, forced_diff, day_date;
 					if (get_date(date) == -1 || get_date(low) == -1 || get_date(forced_lower) == -1)
-						this->is_valid = 7;
+						this->_is_valid = 7;
 					else{
 						day_date = get_date(date);
 						low_diff = get_date(low) - day_date;
 						forced_diff = day_date - get_date(forced_lower);
 					}
 					output_error();
-					if (forced_diff < low_diff && this->is_valid == 0)
+					if (forced_diff < low_diff && this->_is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * (*rit).second << std::endl;
-					else if (this->is_valid == 0)
+					else if (this->_is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
 				}
 			}
