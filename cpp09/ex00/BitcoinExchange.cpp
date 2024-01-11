@@ -4,21 +4,21 @@ BitcoinExchange::BitcoinExchange()
 {
 	std::cout << "BitcoinExchange created\n";
 	fillDB();
-	this->is_valid = false;
+	this->_is_valid = false;
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
 	std::cout << "BitcoinExchange created with copy constructor\n";
 	this->database = copy.database;
-	this->is_valid = false;
+	this->_is_valid = false;
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
 	std::cout << "BitcoinExchange created with operator constructor\n";
 	this->database = copy.database;
-	this->is_valid = false;
+	this->_is_valid = false;
 	return *this;
 }
 
@@ -78,7 +78,7 @@ int BitcoinExchange::get_date(std::string buffer) const
 
 void BitcoinExchange::output_error() const
 {
-	switch (this->is_valid)
+	switch (this->_is_valid)
 	{
 	case 1:
 		std::cout << "Error : Invalid year format" << std::endl;
@@ -127,7 +127,7 @@ void BitcoinExchange::operate(std::string filename)
 	while (std::getline(file,buffer,'\n'))
 	{
 		this->_is_valid = 0;
-		if (buffer.find("|") != std::string::npos && std::count(buffer.begin(), buffer.end(),'|') == 1)
+		if (buffer.find("|") != std::string::npos && std::count(buffer.begin(), buffer.end(),'|') == 1 && buffer[buffer.find("|")+1] == ' ')
 		{
 			std::string low, forced_lower;
 			std::map<std::string, float>::reverse_iterator rit;
@@ -140,7 +140,7 @@ void BitcoinExchange::operate(std::string filename)
 					this->_is_valid = 1;
 				else
 				{
-					for (int i = 0; i < 10; i++) // check les valeurs jour = 99
+					for (int i = 0; i < 10; i++)
 					{
 						if (i < 4)
 							if (isdigit(date[i]) == 0)
@@ -194,7 +194,7 @@ void BitcoinExchange::operate(std::string filename)
 			}
 		}
 		else
-			std::cout << "Error: bad input => " << buffer << std::endl;
+			std::cout << "Error : bad input => " << buffer << std::endl;
 	}
 	file.close();
 }
