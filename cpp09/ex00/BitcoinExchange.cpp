@@ -188,6 +188,7 @@ void BitcoinExchange::operate(std::string filename)
 			else if (value > 1000)
 				this->_is_valid = 6;
 			output_error("");
+			//Getting the both closest date (the n+1 and n-1)
 			if (this->_is_valid == 0 && this->database.find(date) != this->database.end())
 				std::cout << date << "=> " << value << " = " << value * this->database.at(date) << std::endl;
 			else if (this->_is_valid == 0)
@@ -204,6 +205,7 @@ void BitcoinExchange::operate(std::string filename)
 							break;
 						}
 					}
+					//DETERMINE WHICH ONE IS THE CLOSEST (in days)
 					int low_diff, forced_diff, day_date;
 					if (get_date(date) == -1 || get_date(low) == -1 || get_date(forced_lower) == -1)
 						this->_is_valid = 7;
