@@ -32,9 +32,10 @@ BitcoinExchange::~BitcoinExchange()
 
 void BitcoinExchange::fillDB()
 {
-	std::ifstream db ("data.csv");
+	std::ifstream db ("datacp.csv");
 	std::string buffer, date;
 	float value = 0;
+	int line = 1;
 	if (!db)
 	{
 		std::cout << "Failed to open database file\n";
@@ -52,6 +53,7 @@ void BitcoinExchange::fillDB()
 		this->_is_valid = 0;
 		if (buffer.find(",") != std::string::npos)
 		{
+			line++;
 			date = buffer.substr(0, buffer.find(","));
 			if (std::count(buffer.begin(), buffer.end(), ',') != 1)
 				this->_is_valid = 4;
@@ -62,9 +64,14 @@ void BitcoinExchange::fillDB()
 				value = std::strtof(buffer.substr(buffer.find(",")+1).c_str(), NULL);
 			if (value < 0)
 				this->_is_valid = 5;
-			output_error("Database ");
+			if (get_date(date) == -1)
+				this->_is_valid = 7;
 			if (this->_is_valid != 0)
+			{
+				std::cout << "| line :" << line << " | ";
+				output_error("Database ");
 				break;
+			}
 			this->database.insert(std::pair<std::string, float>(date, value));
 		}
 		else
