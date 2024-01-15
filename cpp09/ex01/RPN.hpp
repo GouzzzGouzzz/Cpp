@@ -12,6 +12,8 @@ private:
 	bool is_data(std::string str) const;
 public:
 	RPN();
-	void calcul(std::string str);
+	RPN(const RPN &copy);
+	RPN& operator=(const RPN &cpy);
 	~RPN();
+	void calcul(std::string str);
 };
