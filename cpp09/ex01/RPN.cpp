@@ -9,11 +9,13 @@ RPN::RPN()
 RPN::RPN(const RPN &copy)
 {
 	std::cout << "RPN created with copy constructor\n";
+	(void) copy;
 }
 
 RPN& RPN::operator=(const RPN &copy)
 {
 	std::cout << "RPN created with operator constructor\n";
+	(void) copy;
 	return *this;
 }
 
@@ -115,6 +117,4 @@ void RPN::calcul(std::string str)
 	}
 	std::cout << this->_data.top() << std::endl;
 	this->_data.pop();
-	if (this->_data.empty())
-		std::cout << "oui";
 }
