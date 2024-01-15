@@ -56,4 +56,6 @@ void Pmerge::sort(std::string data)
 	std::cout << "\n";
 	for (int i = 0; i < 10; i++)
 		std::cout << this->deque[i] << " ";
+	this->deque.clear();
+	this->vector.clear();
 }
