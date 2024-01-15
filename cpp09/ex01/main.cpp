@@ -3,9 +3,13 @@
 
 int main(int ac, char **ag)
 {
+	if (ac != 2)
+	{
+		std::cout << "Need 1 args\n";
+		return 0;
+	}
+
 	RPN test;
-	(void)ac;
-	(void) ag;
-	std::string truc = "8 9 * 9 - 9 - 9 - 4 - 1 +";
-	test.calcul(truc);
+	test.calcul(std::string(ag[1]));
+	return 1;
 }
