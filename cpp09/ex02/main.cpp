@@ -9,7 +9,7 @@ int main(int ac, char **ag)
 		return 0;
 	}
 	(void) ag;
-	Pmerge test;
+	PmergeMe test;
 	test.sort("test");
 	return 1;
 }

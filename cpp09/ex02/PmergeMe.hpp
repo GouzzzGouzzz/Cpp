@@ -4,17 +4,17 @@
 #include <deque>
 #include <iostream>
 
-template<class T>
-class Pmerge
+class PmergeMe
 {
 private:
 	std::vector<int> vector;
 	std::deque<int> deque;
-	void insertion_sort(T container);
+	void insertion_sort(std::vector<int>& vector);
+	void insertion_sort(std::deque<int>& deque);
 public:
-	Pmerge();
-	Pmerge(const Pmerge &copy);
-	Pmerge& operator=(const Pmerge &cpy);
-	~Pmerge();
+	PmergeMe();
+	PmergeMe(const PmergeMe &copy);
+	PmergeMe& operator=(const PmergeMe &cpy);
+	~PmergeMe();
 	void sort(std::string parse);
 };
