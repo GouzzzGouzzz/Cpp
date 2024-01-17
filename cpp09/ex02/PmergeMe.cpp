@@ -26,7 +26,7 @@ PmergeMe::~PmergeMe()
 void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 {
 	int val, j;
-	for (int i = start; i <= end; i++)
+	for (int i = start + 1; i <= end; i++)
 	{
 		val = vector[i];
 		j = i - 1;
@@ -43,7 +43,7 @@ void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 void PmergeMe::insertion_sort(std::deque<int>& deque, int start, int end)
 {
 	int val, j;
-	for (int i = start; i <= end; i++)
+	for (int i = start + 1; i <= end; i++)
 	{
 		val = deque[i];
 		j = i - 1;
@@ -82,9 +82,17 @@ void PmergeMe::merge(std::vector<int>& vector, int start, int half, int end)
 		++k;
 	}
 	while (i < size_left)
-		vector[k++] = left[i++];
+	{
+		vector[k] = left[i];
+		++k;
+		++i;
+	}
 	while (j < size_right)
-		vector[k++] = right[j++];
+	{
+		vector[k] = right[j];
+		++j;
+		++k;
+	}
 }
 
 void PmergeMe::merge(std::deque<int>& deque, int start, int half, int end)
@@ -112,9 +120,17 @@ void PmergeMe::merge(std::deque<int>& deque, int start, int half, int end)
 		++k;
 	}
 	while (i < size_left)
-		deque[k++] = left[i++];
+	{
+		deque[k] = left[i];
+		++k;
+		++i;
+	}
 	while (j < size_right)
-		deque[k++] = right[j++];
+	{
+		deque[k] = right[j];
+		++j;
+		++k;
+	}
 }
 
 void PmergeMe::merge_insert_vector(int start, int end)
@@ -125,7 +141,7 @@ void PmergeMe::merge_insert_vector(int start, int end)
 			insertion_sort(this->vector,start, end);
 		else
 		{
-			int half = end + (start - end) / 2;
+			int half = start + (end - start) / 2;
 			merge_insert_vector(start, half);
 			merge_insert_vector(half+1, end);
 			merge(this->vector,start, half,end);
@@ -141,7 +157,7 @@ void PmergeMe::merge_insert_deque(int start, int end)
 			insertion_sort(this->deque,start, end);
 		else
 		{
-			int half = end + (start - end) / 2;
+			int half = start + (end - start) / 2;
 			merge_insert_deque(start, half);
 			merge_insert_deque(half+1, end);
 			merge(this->deque,start, half,end);
@@ -154,7 +170,6 @@ bool PmergeMe::input(std::string parse)
 	std::istringstream stream(parse);
 	std::vector<int> temp;
 	int nb;
-	(void) nb;
 	for (size_t i = 0; i < parse.size(); i++)
 	{
 		if (parse[i] != ' ' && isdigit(parse[i]) == false){
@@ -167,12 +182,12 @@ bool PmergeMe::input(std::string parse)
 			return false;
 		}
 	}
-/* 	while (stream >> nb)
+	while (stream >> nb)
 	{
 		std::cout << "added: " << nb << " ";
 		this->vector.push_back(nb);
 		this->deque.push_back(nb);
-	} */
+	}
 	return true;
 }
 
@@ -180,19 +195,27 @@ void PmergeMe::sort(std::string data)
 {
 	if (input(data) == false)
 		return;
-	for (int i = 12; i > 0; i--)
-	{
-		std::cout << i << " ";
-		this->vector.push_back(i);
-	}
 	std::cout << "\n";
-	merge_insert_vector(0, this->vector.size());
-	//merge_insert_deque(0, this->deque.size());
+	std::cout << "before(vector) :";
 	for (size_t i = 0; i < this->vector.size(); i++)
 		std::cout << this->vector[i] << " ";
 	std::cout << "\n";
+	std::cout << "before(deque)  :";
 	for (size_t i = 0; i < this->deque.size(); i++)
 		std::cout << this->deque[i] << " ";
+	std::cout << "\n";
+
+	merge_insert_vector(0, this->vector.size()-1);
+	merge_insert_deque(0, this->deque.size()-1);
+
+	std::cout << "after(vector)  :";
+	for (size_t i = 0; i < this->vector.size(); i++)
+		std::cout << this->vector[i] << " ";
+	std::cout << "\n";
+	std::cout << "after(deque)   :";
+	for (size_t i = 0; i < this->deque.size(); i++)
+		std::cout << this->deque[i] << " ";
+	std::cout << "\n";
 	this->deque.clear();
 	this->vector.clear();
 }
