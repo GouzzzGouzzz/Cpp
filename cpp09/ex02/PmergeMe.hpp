@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdlib.h>
+#include <sys/time.h>
 
 class PmergeMe
 {

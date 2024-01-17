@@ -205,7 +205,12 @@ void PmergeMe::sort(std::string data)
 		std::cout << this->deque[i] << " ";
 	std::cout << "\n";
 
+	timeval start, end;
+	gettimeofday(&start,NULL);
 	merge_insert_vector(0, this->vector.size()-1);
+	gettimeofday(&end,NULL);
+	double test = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+	std::cout << test << "\n";
 	merge_insert_deque(0, this->deque.size()-1);
 
 	std::cout << "after(vector)  :";
@@ -216,6 +221,6 @@ void PmergeMe::sort(std::string data)
 	for (size_t i = 0; i < this->deque.size(); i++)
 		std::cout << this->deque[i] << " ";
 	std::cout << "\n";
-	this->deque.clear();
-	this->vector.clear();
+
+
 }
