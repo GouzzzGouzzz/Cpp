@@ -26,7 +26,7 @@ PmergeMe::~PmergeMe()
 void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 {
 	int val, j;
-	for (int i = start; i < end; i++)
+	for (int i = start; i <= end; i++)
 	{
 		val = vector[i];
 		j = i - 1;
@@ -34,7 +34,7 @@ void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 		while (j >= start && vector[j] > val)
 		{
 			vector[j + 1] = vector[j];
-			j = j - 1;
+			--j;
 		}
 		vector[j + 1] = val;
 	}
@@ -43,7 +43,7 @@ void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 void PmergeMe::insertion_sort(std::deque<int>& deque, int start, int end)
 {
 	int val, j;
-	for (int i = start; i < end; i++)
+	for (int i = start; i <= end; i++)
 	{
 		val = deque[i];
 		j = i - 1;
@@ -51,86 +51,148 @@ void PmergeMe::insertion_sort(std::deque<int>& deque, int start, int end)
 		while (j >= start && deque[j] > val)
 		{
 			deque[j + 1] = deque[j];
-			j = j - 1;
+			--j;
 		}
 		deque[j + 1] = val;
 	}
 }
 
-void PmergeMe::merge_sort(std::vector<int>& vector, int start, int half, int end)
+void PmergeMe::merge(std::vector<int>& vector, int start, int half, int end)
 {
-	int right_idx = 0, left_idx = 0, n1, n2;
-	n1 = half - start + 1;
-	n2 = end - half;
+	int size_left = half - start + 1;
+	int size_right = end - half;
+	int i = 0, j = 0;
+	int k = start;
+	std::vector<int> left(size_left);
+	std::vector<int> right(size_right);
 
-	std::vector<int> right, left;
-	for (int i = start; i < half; i++) // half + 1
-		left.push_back(vector[i]);
-	for (int i = half; i < end; i++)// half + 1
-		right.push_back(vector[i]);
-
-	//debug
-	std::cout << "vector right :";
-	for (size_t i = 0; i < right.size(); i++)
-		std::cout << right[i] << " ";
-	std::cout << "\n";
-	std::cout << "vector left :";
-	for (size_t i = 0; i < left.size(); i++)
-		std::cout << left[i] << " ";
-	std::cout << "\n";
-	std::cout << "vector curr :";
-	for (size_t i = 0; i < vector.size(); i++)
-		std::cout << vector[i] << " ";
-	std::cout << "\n";
-	//end
-
-	for (int i = start; i < end - start + 1; i++)
+	for (int i = 0; i < size_left; ++i)
+		left[i] = vector[start + i];
+	for (int j = 0; j < size_right; ++j)
+		right[j] = vector[half + 1 + j];
+	while (i < size_left && j < size_right)
 	{
-		if (right_idx == n2) {
-			vector[i] = left[left_idx];
-			left_idx++;
+		if (left[i] <= right[j]) {
+			vector[k] = left[i];
+			++i;
+		} else {
+			vector[k] = right[j];
+			++j;
 		}
-		else if (left_idx == n1){
-			vector[i] = right[right_idx];
-			right_idx++;
-		}
-		else if (right[right_idx] > left[left_idx]){
-			vector[i] = left[left_idx];
-			left_idx++;
-		}
-		else{
-			vector[i] = right[right_idx];
-			right_idx++;
-		}
+		++k;
 	}
+	while (i < size_left)
+		vector[k++] = left[i++];
+	while (j < size_right)
+		vector[k++] = right[j++];
+}
+
+void PmergeMe::merge(std::deque<int>& deque, int start, int half, int end)
+{
+	int size_left = half - start + 1;
+	int size_right = end - half;
+	int i = 0, j = 0;
+	int k = start;
+	std::deque<int> left(size_left);
+	std::deque<int> right(size_right);
+
+	for (int i = 0; i < size_left; ++i)
+		left[i] = deque[start + i];
+	for (int j = 0; j < size_right; ++j)
+		right[j] = deque[half + 1 + j];
+	while (i < size_left && j < size_right)
+	{
+		if (left[i] <= right[j]) {
+			deque[k] = left[i];
+			++i;
+		} else {
+			deque[k] = right[j];
+			++j;
+		}
+		++k;
+	}
+	while (i < size_left)
+		deque[k++] = left[i++];
+	while (j < size_right)
+		deque[k++] = right[j++];
 }
 
 void PmergeMe::merge_insert_vector(int start, int end)
 {
-	if (end - start > 5) {
-		int half = (start + end) / 2;
-		merge_insert_vector(start, half);
-		merge_insert_vector(half + 1, end);
-		merge_sort(this->vector, start, half, end);
+	if (start < end)
+	{
+		if (end - start + 1 <= 5)
+			insertion_sort(this->vector,start, end);
+		else
+		{
+			int half = end + (start - end) / 2;
+			merge_insert_vector(start, half);
+			merge_insert_vector(half+1, end);
+			merge(this->vector,start, half,end);
+		}
 	}
-	else
-		insertion_sort(this->vector, start, end);
+}
+
+void PmergeMe::merge_insert_deque(int start, int end)
+{
+	if (start < end)
+	{
+		if (end - start + 1 <= 5)
+			insertion_sort(this->deque,start, end);
+		else
+		{
+			int half = end + (start - end) / 2;
+			merge_insert_deque(start, half);
+			merge_insert_deque(half+1, end);
+			merge(this->deque,start, half,end);
+		}
+	}
+}
+
+bool PmergeMe::input(std::string parse)
+{
+	std::istringstream stream(parse);
+	std::vector<int> temp;
+	int nb;
+	(void) nb;
+	for (size_t i = 0; i < parse.size(); i++)
+	{
+		if (parse[i] != ' ' && isdigit(parse[i]) == false){
+			std::cout << "At pos: " << i << " `"<< parse[i] << "` is not a valid input !" << std::endl;
+			return false;
+		}
+		if (parse[i] == ' ' && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
+		{
+			std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0.\n";
+			return false;
+		}
+	}
+/* 	while (stream >> nb)
+	{
+		std::cout << "added: " << nb << " ";
+		this->vector.push_back(nb);
+		this->deque.push_back(nb);
+	} */
+	return true;
 }
 
 void PmergeMe::sort(std::string data)
 {
-	(void) data;
+	if (input(data) == false)
+		return;
 	for (int i = 12; i > 0; i--)
 	{
+		std::cout << i << " ";
 		this->vector.push_back(i);
-		this->deque.push_back(i);
 	}
+	std::cout << "\n";
 	merge_insert_vector(0, this->vector.size());
-	for (int i = 0; i < 10; i++)
+	//merge_insert_deque(0, this->deque.size());
+	for (size_t i = 0; i < this->vector.size(); i++)
 		std::cout << this->vector[i] << " ";
 	std::cout << "\n";
-	//for (int i = 0; i < 10; i++)
-	//	std::cout << this->deque[i] << " ";
+	for (size_t i = 0; i < this->deque.size(); i++)
+		std::cout << this->deque[i] << " ";
 	this->deque.clear();
 	this->vector.clear();
 }

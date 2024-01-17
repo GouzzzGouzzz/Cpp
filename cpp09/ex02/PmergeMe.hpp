@@ -3,6 +3,8 @@
 #include <vector>
 #include <deque>
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
 
 class PmergeMe
 {
@@ -11,8 +13,11 @@ private:
 	std::deque<int> deque;
 	void insertion_sort(std::vector<int>& vector, int start, int end);
 	void insertion_sort(std::deque<int>& deque, int start, int end);
-	void merge_sort(std::vector<int>& vector, int start, int half, int end);
+	void merge(std::vector<int>& vector, int start, int half, int end);
+	void merge(std::deque<int>& vector, int start, int half, int end);
 	void merge_insert_vector(int start, int end);
+	void merge_insert_deque(int start, int end);
+	bool input(std::string parse);
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &copy);

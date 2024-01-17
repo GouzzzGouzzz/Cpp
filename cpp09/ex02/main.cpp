@@ -10,6 +10,6 @@ int main(int ac, char **ag)
 	}
 	(void) ag;
 	PmergeMe test;
-	test.sort("test");
+	test.sort(std::string(ag[1]));
 	return 1;
 }
