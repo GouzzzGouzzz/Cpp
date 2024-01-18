@@ -6,6 +6,9 @@
 #include <sstream>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <iomanip>
+
+#define MAKEITSHORTER 0
 
 class PmergeMe
 {
@@ -19,6 +22,8 @@ private:
 	void merge_insert_vector(int start, int end);
 	void merge_insert_deque(int start, int end);
 	bool input(char **ag, int ac);
+	void print_vector();
+	void print_deque();
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &copy);

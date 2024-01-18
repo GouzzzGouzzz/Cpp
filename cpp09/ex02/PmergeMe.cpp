@@ -192,7 +192,6 @@ bool PmergeMe::input(char **ag, int ac)
 		}
 		while (stream >> nb)
 		{
-			std::cout << "added: " << nb << " ";
 			this->vector.push_back(nb);
 			this->deque.push_back(nb);
 		}
@@ -200,39 +199,57 @@ bool PmergeMe::input(char **ag, int ac)
 	return true;
 }
 
+void PmergeMe::print_vector()
+{
+	std::cout << "Printing vector :";
+	if (MAKEITSHORTER == 1 && this->vector.size() > 10){
+		for (size_t i = 0; i < 10; i++)
+			std::cout << this->vector[i] << " ";
+	}
+	else{
+		for (std::vector<int>::iterator it = this->vector.begin(); it < this->vector.end();it++)
+			std::cout << (*it) << " ";
+	}
+	std::cout << "\n";
+}
+
+void PmergeMe::print_deque()
+{
+	std::cout << "\nPrinting deque  :";
+	if (MAKEITSHORTER == 1 && this->deque.size() > 10){
+		for (size_t i = 0; i < 10; i++)
+			std::cout << this->deque[i] << " ";
+	}
+	else{
+		for (std::deque<int>::iterator it = this->deque.begin(); it < this->deque.end();it++)
+			std::cout << (*it) << " ";
+	}
+	std::cout << "\n";
+}
+
 void PmergeMe::sort(char **ag, int ac)
 {
 	if (input(ag, ac) == false)
 		return;
-	std::cout << "\n";
-	std::cout << "before(vector) :";
-	for (size_t i = 0; i < this->vector.size(); i++)
-		std::cout << this->vector[i] << " ";
-	std::cout << "\n";
-	std::cout << "before(deque)  :";
-	for (size_t i = 0; i < this->deque.size(); i++)
-		std::cout << this->deque[i] << " ";
-	std::cout << "\n";
+	print_vector();
+	print_deque();
 
-	struct timeval	curr_s, curr_e;
-	long int		ms_s, ms_e;
-
-	gettimeofday(&curr_s, NULL);
-	ms_s = (curr_s.tv_sec % 86400) * 1000 + (curr_s.tv_usec / 1000);
+	struct timeval start_v, start_d;
+	struct timeval end_v, end_d;
+	double buffer;
+	gettimeofday(&start_v, NULL);
 	merge_insert_vector(0, this->vector.size()-1);
-	gettimeofday(&curr_e, NULL);
-	ms_e = (curr_e.tv_sec % 86400) * 1000 + (curr_e.tv_usec / 1000);
-	std::cout << ms_e - ms_s;
+	gettimeofday(&end_v, NULL);
+	buffer = (double)(end_v.tv_sec - start_v.tv_sec) + (double)(end_v.tv_usec - start_v.tv_usec) / 1000000;
+	std::cout << "Time to process a range of: " << this->vector.size() << " elements with std::vector :";
+	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
+	gettimeofday(&start_d, NULL);
 	merge_insert_deque(0, this->deque.size()-1);
+	gettimeofday(&end_d, NULL);
+	buffer = (double)(end_d.tv_sec - start_d.tv_sec) + (double)(end_d.tv_usec - start_d.tv_usec) / 1000000;
+	std::cout << "Time to process a range of: " << this->deque.size() << " elements with std::deque  :";
+	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 
-	std::cout << "after(vector)  :";
-	for (size_t i = 0; i < this->vector.size(); i++)
-		std::cout << this->vector[i] << " ";
-	std::cout << "\n";
-	std::cout << "after(deque)   :";
-	for (size_t i = 0; i < this->deque.size(); i++)
-		std::cout << this->deque[i] << " ";
-	std::cout << "\n";
-
-
+	print_vector();
+	print_deque();
 }
