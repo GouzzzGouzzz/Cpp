@@ -165,35 +165,44 @@ void PmergeMe::merge_insert_deque(int start, int end)
 	}
 }
 
-bool PmergeMe::input(std::string parse)
+bool PmergeMe::input(char **ag, int ac)
 {
-	std::istringstream stream(parse);
 	std::vector<int> temp;
 	int nb;
-	for (size_t i = 0; i < parse.size(); i++)
+	for (int i = 1; i < ac; i++)
 	{
-		if (parse[i] != ' ' && isdigit(parse[i]) == false){
-			std::cout << "At pos: " << i << " `"<< parse[i] << "` is not a valid input !" << std::endl;
-			return false;
-		}
-		if (parse[i] == ' ' && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
+		std::istringstream stream(ag[i]);
+		std::string parse = ag[i];
+		for (size_t i = 0; i < parse.size(); i++)
 		{
-			std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0.\n";
-			return false;
+			if (parse[i] != ' ' && isdigit(parse[i]) == false){
+				std::cout << "At pos: " << i << " `"<< parse[i] << "` is not a valid input !" << std::endl;
+				return false;
+			}
+			if (parse[i] == ' ' && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
+			{
+				std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
+				return false;
+			}
+			if (i == 0 && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
+			{
+				std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
+				return false;
+			}
 		}
-	}
-	while (stream >> nb)
-	{
-		std::cout << "added: " << nb << " ";
-		this->vector.push_back(nb);
-		this->deque.push_back(nb);
+		while (stream >> nb)
+		{
+			std::cout << "added: " << nb << " ";
+			this->vector.push_back(nb);
+			this->deque.push_back(nb);
+		}
 	}
 	return true;
 }
 
-void PmergeMe::sort(std::string data)
+void PmergeMe::sort(char **ag, int ac)
 {
-	if (input(data) == false)
+	if (input(ag, ac) == false)
 		return;
 	std::cout << "\n";
 	std::cout << "before(vector) :";
@@ -205,12 +214,15 @@ void PmergeMe::sort(std::string data)
 		std::cout << this->deque[i] << " ";
 	std::cout << "\n";
 
-	timeval start, end;
-	gettimeofday(&start,NULL);
+	struct timeval	curr_s, curr_e;
+	long int		ms_s, ms_e;
+
+	gettimeofday(&curr_s, NULL);
+	ms_s = (curr_s.tv_sec % 86400) * 1000 + (curr_s.tv_usec / 1000);
 	merge_insert_vector(0, this->vector.size()-1);
-	gettimeofday(&end,NULL);
-	double test = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
-	std::cout << test << "\n";
+	gettimeofday(&curr_e, NULL);
+	ms_e = (curr_e.tv_sec % 86400) * 1000 + (curr_e.tv_usec / 1000);
+	std::cout << ms_e - ms_s;
 	merge_insert_deque(0, this->deque.size()-1);
 
 	std::cout << "after(vector)  :";

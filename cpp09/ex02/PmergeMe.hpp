@@ -18,11 +18,11 @@ private:
 	void merge(std::deque<int>& vector, int start, int half, int end);
 	void merge_insert_vector(int start, int end);
 	void merge_insert_deque(int start, int end);
-	bool input(std::string parse);
+	bool input(char **ag, int ac);
 public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &copy);
 	PmergeMe& operator=(const PmergeMe &cpy);
 	~PmergeMe();
-	void sort(std::string parse);
+	void sort(char **ag, int ac);
 };
