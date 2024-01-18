@@ -5,15 +5,15 @@
 
 class Serialize
 {
-private:
-	/* data */
 public:
-	Serialize(/* args */);
+	Serialize();
 	Serialize(Serialize &copy);
 	Serialize& operator=(const Serialize &copy);
 	~Serialize();
 
 	uintptr_t serialize(Data* ptr);
 	Data* deserialize(uintptr_t raw);
+private:
+
 };
 

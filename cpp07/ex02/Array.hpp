@@ -4,9 +4,6 @@
 template<class T>
 class Array
 {
-private:
-	T *array;
-	unsigned int len;
 public:
 	class OOB : public std::exception
 	{
@@ -56,7 +53,9 @@ public:
 		return this->array[n];
 	}
 	int size() const { return this->len; }
-
+private:
+	T *array;
+	unsigned int len;
 };
 
 

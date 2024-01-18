@@ -6,9 +6,6 @@
 
 class Span
 {
-private:
-	std::vector<int> store;
-	unsigned int max;
 public:
 	class maximumReached : public std::exception
 	{
@@ -41,6 +38,9 @@ public:
 	}
 	int shortestSpan() const;
 	int longestSpan() const;
+private:
+	std::vector<int> store;
+	unsigned int max;
 };
 
 

@@ -12,6 +12,12 @@
 
 class PmergeMe
 {
+public:
+	PmergeMe();
+	PmergeMe(const PmergeMe &copy);
+	PmergeMe& operator=(const PmergeMe &cpy);
+	~PmergeMe();
+	void sort(char **ag, int ac);
 private:
 	std::vector<int> vector;
 	std::deque<int> deque;
@@ -24,10 +30,4 @@ private:
 	bool input(char **ag, int ac);
 	void print_vector();
 	void print_deque();
-public:
-	PmergeMe();
-	PmergeMe(const PmergeMe &copy);
-	PmergeMe& operator=(const PmergeMe &cpy);
-	~PmergeMe();
-	void sort(char **ag, int ac);
 };
