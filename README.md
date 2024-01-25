@@ -1,1 +1,1 @@
-All cpp modules from 42 school common cursus
+All 42 school c++ modules from common cursus.
