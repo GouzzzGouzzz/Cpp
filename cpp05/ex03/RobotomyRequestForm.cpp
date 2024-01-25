@@ -16,8 +16,8 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &obj) : AForm(obj.g
 RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm &obj)
 {
 	std::cout << "RobotomyForm has been created (copy assignement)\n";
-	*this = obj;
-	return *this;
+	(void) obj;
+	return (*this);
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()

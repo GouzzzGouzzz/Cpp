@@ -15,7 +15,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &obj) : AForm
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm &obj)
 {
 	std::cout << "ShrubberyCreationForm has been created (copy assignement)\n";
-	*this = obj;
+	(void) obj;
 	return *this;
 }
 
