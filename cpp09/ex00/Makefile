@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gouz <gouz@student.42.fr>                  +#+  +:+       +#+         #
+#    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2024/01/10 17:54:18 by gouz             ###   ########.fr        #
+#    Updated: 2024/01/31 13:24:34 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=btc
 CC=c++
-CFLAGS=-g -std=c++98
+CFLAGS=-g -Wall -Werror -Wextra -std=c++98
 
 FILES=main.cpp\
 	BitcoinExchange.cpp
