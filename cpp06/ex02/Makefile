@@ -6,11 +6,11 @@
 #    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2023/10/17 18:40:31 by nmorandi         ###   ########.fr        #
+#    Updated: 2024/02/02 13:39:33 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=Serialize
+NAME=Base
 CC=c++
 CFLAGS=-g -Wall -Werror -Wextra -std=c++98
 
