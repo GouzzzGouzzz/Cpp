@@ -85,6 +85,37 @@ void PmergeMe::print_deque()
 	std::cout << "\n";
 }
 
+void PmergeMe::sort_pair(std::vector<int>& paired)
+{
+
+}
+
+void PmergeMe::merge_insert_vector(std::vector<int>& main)
+{
+	int straggler = -1;
+	std::vector<int> high_paired;
+	if (main.size() % 2 == 1)
+	{
+		straggler = main.back();
+		main.pop_back();
+	}
+	//get the highest pair grouped
+	for (size_t i = 0; i < main.size(); i+=2)
+	{
+		if (main[i] < main[i+1])
+			high_paired.push_back(main[i+1]);
+		else
+			high_paired.push_back(main[i]);
+	}
+/* 	std::cout << "\n";
+	for (size_t i = 0; i < high_paired.size(); i++)
+	{
+		std::cout << high_paired[i] << " ";
+	} */
+	//sorting the pair with recursion :
+
+}
+
 void PmergeMe::sort(char **ag, int ac)
 {
 	if (input(ag, ac) == false)
@@ -92,7 +123,8 @@ void PmergeMe::sort(char **ag, int ac)
 	print_vector();
 	print_deque();
 
-	struct timeval start_v, start_d;
+	merge_insert_vector(this->vector);
+/* 	struct timeval start_v, start_d;
 	struct timeval end_v, end_d;
 	double buffer;
 	gettimeofday(&start_v, NULL);
@@ -102,12 +134,12 @@ void PmergeMe::sort(char **ag, int ac)
 	std::cout << "Time to process a range of: " << this->vector.size() << " elements with std::vector :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 	gettimeofday(&start_d, NULL);
-	merge_insert_deque(0, this->deque.size()-1);
+	//merge_insert_deque(0, this->deque.size()-1);
 	gettimeofday(&end_d, NULL);
 	buffer = (double)(end_d.tv_sec - start_d.tv_sec) + (double)(end_d.tv_usec - start_d.tv_usec) / 1000000;
 	std::cout << "Time to process a range of: " << this->deque.size() << " elements with std::deque  :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 
 	print_vector();
-	print_deque();
+	print_deque(); */
 }

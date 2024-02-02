@@ -24,4 +24,6 @@ private:
 	bool input(char **ag, int ac);
 	void print_vector();
 	void print_deque();
+	void merge_insert_vector(std::vector<int>& main);
+	std::vector<int> create_pairs(std::vector<int>& main);
 };
