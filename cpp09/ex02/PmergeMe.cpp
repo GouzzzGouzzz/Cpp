@@ -23,7 +23,7 @@ PmergeMe::~PmergeMe()
 
 }
 
-void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
+/* void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
 {
 	int val, j;
 	for (int i = start + 1; i <= end; i++)
@@ -163,7 +163,9 @@ void PmergeMe::merge_insert_deque(int start, int end)
 			merge(this->deque,start, half,end);
 		}
 	}
-}
+} */
+
+
 
 bool PmergeMe::input(char **ag, int ac)
 {
