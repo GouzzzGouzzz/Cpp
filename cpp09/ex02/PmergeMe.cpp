@@ -23,148 +23,6 @@ PmergeMe::~PmergeMe()
 
 }
 
-void PmergeMe::insertion_sort(std::vector<int>& vector, int start, int end)
-{
-	int val, j;
-	for (int i = start + 1; i <= end; i++)
-	{
-		val = vector[i];
-		j = i - 1;
-
-		while (j >= start && vector[j] > val)
-		{
-			vector[j + 1] = vector[j];
-			--j;
-		}
-		vector[j + 1] = val;
-	}
-}
-
-void PmergeMe::insertion_sort(std::deque<int>& deque, int start, int end)
-{
-	int val, j;
-	for (int i = start + 1; i <= end; i++)
-	{
-		val = deque[i];
-		j = i - 1;
-
-		while (j >= start && deque[j] > val)
-		{
-			deque[j + 1] = deque[j];
-			--j;
-		}
-		deque[j + 1] = val;
-	}
-}
-
-void PmergeMe::merge(std::vector<int>& vector, int start, int half, int end)
-{
-	int size_left = half - start + 1;
-	int size_right = end - half;
-	int i = 0, j = 0;
-	int k = start;
-	std::vector<int> left(size_left);
-	std::vector<int> right(size_right);
-
-	for (int i = 0; i < size_left; ++i)
-		left[i] = vector[start + i];
-	for (int j = 0; j < size_right; ++j)
-		right[j] = vector[half + 1 + j];
-	while (i < size_left && j < size_right)
-	{
-		if (left[i] <= right[j]) {
-			vector[k] = left[i];
-			++i;
-		} else {
-			vector[k] = right[j];
-			++j;
-		}
-		++k;
-	}
-	while (i < size_left)
-	{
-		vector[k] = left[i];
-		++k;
-		++i;
-	}
-	while (j < size_right)
-	{
-		vector[k] = right[j];
-		++j;
-		++k;
-	}
-}
-
-void PmergeMe::merge(std::deque<int>& deque, int start, int half, int end)
-{
-	int size_left = half - start + 1;
-	int size_right = end - half;
-	int i = 0, j = 0;
-	int k = start;
-	std::deque<int> left(size_left);
-	std::deque<int> right(size_right);
-
-	for (int i = 0; i < size_left; ++i)
-		left[i] = deque[start + i];
-	for (int j = 0; j < size_right; ++j)
-		right[j] = deque[half + 1 + j];
-	while (i < size_left && j < size_right)
-	{
-		if (left[i] <= right[j]) {
-			deque[k] = left[i];
-			++i;
-		} else {
-			deque[k] = right[j];
-			++j;
-		}
-		++k;
-	}
-	while (i < size_left)
-	{
-		deque[k] = left[i];
-		++k;
-		++i;
-	}
-	while (j < size_right)
-	{
-		deque[k] = right[j];
-		++j;
-		++k;
-	}
-}
-
-void PmergeMe::merge_insert_vector(int start, int end)
-{
-	if (start < end)
-	{
-		if (end - start + 1 <= 5)
-			insertion_sort(this->vector,start, end);
-		else
-		{
-			int half = start + (end - start) / 2;
-			merge_insert_vector(start, half);
-			merge_insert_vector(half+1, end);
-			merge(this->vector,start, half,end);
-		}
-	}
-}
-
-void PmergeMe::merge_insert_deque(int start, int end)
-{
-	if (start < end)
-	{
-		if (end - start + 1 <= 5)
-			insertion_sort(this->deque,start, end);
-		else
-		{
-			int half = start + (end - start) / 2;
-			merge_insert_deque(start, half);
-			merge_insert_deque(half+1, end);
-			merge(this->deque,start, half,end);
-		}
-	}
-}
-
 bool PmergeMe::input(char **ag, int ac)
 {
 	std::vector<int> temp;
@@ -227,6 +85,37 @@ void PmergeMe::print_deque()
 	std::cout << "\n";
 }
 
+void PmergeMe::sort_pair(std::vector<int>& paired)
+{
+
+}
+
+void PmergeMe::merge_insert_vector(std::vector<int>& main)
+{
+	int straggler = -1;
+	std::vector<int> high_paired;
+	if (main.size() % 2 == 1)
+	{
+		straggler = main.back();
+		main.pop_back();
+	}
+	//get the highest pair grouped
+	for (size_t i = 0; i < main.size(); i+=2)
+	{
+		if (main[i] < main[i+1])
+			high_paired.push_back(main[i+1]);
+		else
+			high_paired.push_back(main[i]);
+	}
+/* 	std::cout << "\n";
+	for (size_t i = 0; i < high_paired.size(); i++)
+	{
+		std::cout << high_paired[i] << " ";
+	} */
+	//sorting the pair with recursion :
+
+}
+
 void PmergeMe::sort(char **ag, int ac)
 {
 	if (input(ag, ac) == false)
@@ -234,7 +123,8 @@ void PmergeMe::sort(char **ag, int ac)
 	print_vector();
 	print_deque();
 
-	struct timeval start_v, start_d;
+	merge_insert_vector(this->vector);
+/* 	struct timeval start_v, start_d;
 	struct timeval end_v, end_d;
 	double buffer;
 	gettimeofday(&start_v, NULL);
@@ -244,12 +134,12 @@ void PmergeMe::sort(char **ag, int ac)
 	std::cout << "Time to process a range of: " << this->vector.size() << " elements with std::vector :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 	gettimeofday(&start_d, NULL);
-	merge_insert_deque(0, this->deque.size()-1);
+	//merge_insert_deque(0, this->deque.size()-1);
 	gettimeofday(&end_d, NULL);
 	buffer = (double)(end_d.tv_sec - start_d.tv_sec) + (double)(end_d.tv_usec - start_d.tv_usec) / 1000000;
 	std::cout << "Time to process a range of: " << this->deque.size() << " elements with std::deque  :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 
 	print_vector();
-	print_deque();
+	print_deque(); */
 }

@@ -20,7 +20,7 @@ Intern::Intern(Intern &obj)
 Intern& Intern::operator=(Intern &obj)
 {
 	std::cout << "Intern has been created (copy assignement)\n";
-	*this = obj;
+	(void) obj;
 	return *this;
 }
 

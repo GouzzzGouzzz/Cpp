@@ -5,6 +5,7 @@
 #include "C.hpp"
 #include <cstdlib>
 #include <ctime>
+
 Base::~Base()
 {
 	std::cout << "Base class destructor called\n";

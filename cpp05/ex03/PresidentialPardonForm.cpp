@@ -15,7 +15,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &obj) : AF
 PresidentialPardonForm& PresidentialPardonForm::operator=(PresidentialPardonForm &obj)
 {
 	std::cout << "PresidentialPardonForm has been created (copy assignement)\n";
-	*this = obj;
+	(void) obj;
 	return *this;
 }
 
