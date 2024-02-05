@@ -26,7 +26,7 @@ private:
 	void print_vector();
 	void print_deque();
 	int get_paired(int target);
-	void sort_pair(std::vector<int> &arr);
+	void sort_pair(std::vector<int> &arr, int offset);
 	void mergeInsert_vector(std::vector<int>& main);
 	int binarySearch_vector(std::vector<int>& sortedArray, int target, int low, int high) const;
 };

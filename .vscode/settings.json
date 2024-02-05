@@ -54,7 +54,9 @@
 		"ranges": "cpp",
 		"span": "cpp",
 		"list": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"chrono": "cpp",
+		"ratio": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "disabled"
 }

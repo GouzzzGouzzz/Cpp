@@ -124,18 +124,21 @@ int PmergeMe::get_paired(int target)
 	return -1;
 }
 
-void PmergeMe::sort_pair(std::vector<int> &arr)
+void PmergeMe::sort_pair(std::vector<int> &arr, int offset)
 {
-	for (size_t i = 0; i < arr.size() - 1; i+=2)
+	if (size_t(offset) < arr.size() - 1)
 	{
-		if (arr[i] > arr[i+1])
+		for (size_t i = offset + 1; i < arr.size(); i++)
 		{
-			int tmp = arr[i];
-			arr[i] = arr[i+1];
-			arr[i+1] = tmp;
+			if (arr[i] < arr[offset]) // swap
+			{
+				int tmp = arr[i];
+				arr[i] = arr[offset];
+				arr[offset] = tmp;
+			}
 		}
+		sort_pair(arr, offset + 1);
 	}
-	sort_pair(arr);
 }
 
 void PmergeMe::mergeInsert_vector(std::vector<int>& main)
@@ -148,10 +151,10 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 		else
 			larger_pair.push_back(main[i]);
 	}
+	sort_pair(larger_pair, 0);//les pairs sont trier plus qu a binarysort
 	for (size_t i = 0; i < larger_pair.size(); i++)
 		std::cout << larger_pair[i] << " ";
 	std::cout << std::endl;
-	sort_pair(larger_pair);//les pairs sont trier plus qu a binarysort
 	/* for (size_t i = 0; i < larger_pair.size(); i++)
 		std::cout << larger_pair[i] << " ";
 	std::cout << std::endl; */
