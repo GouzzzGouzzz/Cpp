@@ -20,6 +20,7 @@ public:
 	void sort(char **ag, int ac);
 private:
 	std::vector<int> vector;
+	std::vector<int> vector_copy;
 	std::deque<int> deque;
 	bool input(char **ag, int ac);
 	void print_vector();

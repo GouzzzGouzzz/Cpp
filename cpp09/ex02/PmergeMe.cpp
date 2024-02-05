@@ -127,8 +127,17 @@ int PmergeMe::get_paired(int target)
 void PmergeMe::sort_pair(std::vector<int> &arr)
 {
 	if (arr.size() < 2)
-		return arr;
-
+		return ;
+	for (size_t i = 0; i < arr.size() - 1; i+=2)
+	{
+		if (arr[i] > arr[i+1])
+		{
+			int tmp = arr[i];
+			arr[i] = arr[i+1];
+			arr[i+1] = tmp;
+		}
+	}
+	sort_pair(arr);
 }
 
 void PmergeMe::mergeInsert_vector(std::vector<int>& main)
@@ -144,12 +153,10 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 	for (size_t i = 0; i < larger_pair.size(); i++)
 		std::cout << larger_pair[i] << " ";
 	std::cout << std::endl;
-	std::vector<int> sorted_larger;
-	sorted_larger = sort_pair(larger_pair);//les pairs sont trier plus qu a binarysort
-	for (size_t i = 0; i < sorted_larger.size(); i++)
-		std::cout << sorted_larger[i] << " ";
-
-	std::cout << std::endl;
+	sort_pair(larger_pair);//les pairs sont trier plus qu a binarysort
+	/* for (size_t i = 0; i < larger_pair.size(); i++)
+		std::cout << larger_pair[i] << " ";
+	std::cout << std::endl; */
 /*
 	int insertIndex = 0;
 	for (size_t i = 0; i < main.size(); i++)
@@ -169,6 +176,7 @@ void PmergeMe::sort(char **ag, int ac)
 {
 	if (input(ag, ac) == false)
 		return;
+	this->vector_copy = this->vector;
 	print_vector();
 	print_deque();
 
