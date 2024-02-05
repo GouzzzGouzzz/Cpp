@@ -6,13 +6,13 @@
 #    By: nmorandi <nmorandi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 15:58:39 by nmorandi          #+#    #+#              #
-#    Updated: 2024/02/05 14:06:19 by nmorandi         ###   ########.fr        #
+#    Updated: 2024/02/05 15:49:27 by nmorandi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=PmergeMe
 CC=c++
-CFLAGS=#-Wall -Werror -Wextra -g -std=c++98
+CFLAGS=-Wall -Werror -Wextra -g -std=c++98
 
 FILES=main.cpp\
 	PmergeMe.cpp

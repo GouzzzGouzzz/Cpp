@@ -103,43 +103,75 @@ int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target, int
 	return low;
 }
 
-void PmergeMe::mergeInsert_vector(std::vector<int>& main)
+int PmergeMe::get_paired(int target)
 {
-	// end of recursion
-	if(main.size() <= 1)
-		return ;
+	for (size_t i = 0; i < this->vector_copy.size(); i++)
+	{
+		if (this->vector_copy[i] == target)
+		{
+			if (i % 2 == 0)
+			{
+				std::cout << "returned :" << this->vector_copy[i+1] << " for " << target << "\n";
+				return this->vector_copy[i+1];
+			}
+			else
+			{
+				std::cout << "returned :" << this->vector_copy[i+1] << " for " << target << "\n";
+				return this->vector_copy[i-1];
+			}
+		}
+	}
+	return -1;
+}
 
-	int insertIndex = 0;
+std::vector<int> PmergeMe::sort_pair(std::vector<int> &arr)
+{
+	if(arr.size() < 2)
+		return arr;
+
 	std::vector<int> sorted;
 
 	//get the highest pair grouped
-	for (size_t i = 0; i < main.size() - 1; i+=2)
+	for (size_t i = 0; i < arr.size() - 1; i+=2)
 	{
-		if (main[i] < main[i+1])
-			sorted.push_back(main[i+1]);
+		if (arr[i] < arr[i+1])
+			sorted.push_back(arr[i+1]);
 		else
-			sorted.push_back(main[i]);
+			sorted.push_back(arr[i]);
 	}
-	//sorting with recursion
+	sort_pair(sorted);
+
+	sorted.insert(sorted.begin(), get_paired(sorted[0]));
+	return sorted;
+}
+
+void PmergeMe::mergeInsert_vector(std::vector<int>& main)
+{
+	std::vector<int> sorted;
+	sorted = sort_pair(main);
 	for (size_t i = 0; i < sorted.size(); i++)
 		std::cout << sorted[i] << " ";
 	std::cout << std::endl;
-	mergeInsert_vector(sorted);
-	std::vector<int> test;
-	test.push_back(main[0]);
-	//inserted remaining elements (starting to 1 since 0 has been inserted)
-	/* for (size_t i = 1; i < main.size(); i++)
+/*
+	int insertIndex = 0;
+	for (size_t i = 0; i < main.size(); i++)
 	{
 		insertIndex = binarySearch_vector(sorted, main[i], 0, sorted.size() - 1);
+		std::cout << "inserted:" << main[i] << " at []" << insertIndex<<"\n";
+		std::cout << "now : ";
 		sorted.insert(sorted.begin() + insertIndex, main[i]);
-	} */
-	this->vector = sorted;
+		for (size_t i = 0; i < sorted.size(); i++)
+			std::cout << sorted[i] << " ";
+		std::cout << "\n";
+	}
+	this->vector = sorted; */
 }
 
 void PmergeMe::sort(char **ag, int ac)
 {
 	if (input(ag, ac) == false)
 		return;
+	this->vector_copy = this->vector;
 	print_vector();
 	print_deque();
 
