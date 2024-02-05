@@ -126,8 +126,6 @@ int PmergeMe::get_paired(int target)
 
 void PmergeMe::sort_pair(std::vector<int> &arr)
 {
-	if (arr.size() < 2)
-		return ;
 	for (size_t i = 0; i < arr.size() - 1; i+=2)
 	{
 		if (arr[i] > arr[i+1])
