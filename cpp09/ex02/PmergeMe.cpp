@@ -85,35 +85,55 @@ void PmergeMe::print_deque()
 	std::cout << "\n";
 }
 
-void PmergeMe::sort_pair(std::vector<int>& paired)
-{
 
+//return the index from where our target should be placed --> TODO : ADD Jacobsthal here
+int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target, int low, int high) const
+{
+	int mid = 0;
+	while (low <= high)
+	{
+		mid = low + (high - low) / 2;
+		if (sortedArray[mid] == target)
+			return mid;
+		else if (sortedArray[mid] < target)
+			low = mid + 1;
+		else
+			high = mid - 1;
+	}
+	return low;
 }
 
-void PmergeMe::merge_insert_vector(std::vector<int>& main)
+void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 {
-	int straggler = -1;
-	std::vector<int> high_paired;
-	if (main.size() % 2 == 1)
-	{
-		straggler = main.back();
-		main.pop_back();
-	}
+	// end of recursion
+	if(main.size() <= 1)
+		return ;
+
+	int insertIndex = 0;
+	std::vector<int> sorted;
+
 	//get the highest pair grouped
-	for (size_t i = 0; i < main.size(); i+=2)
+	for (size_t i = 0; i < main.size() - 1; i+=2)
 	{
 		if (main[i] < main[i+1])
-			high_paired.push_back(main[i+1]);
+			sorted.push_back(main[i+1]);
 		else
-			high_paired.push_back(main[i]);
+			sorted.push_back(main[i]);
 	}
-/* 	std::cout << "\n";
-	for (size_t i = 0; i < high_paired.size(); i++)
+	//sorting with recursion
+	for (size_t i = 0; i < sorted.size(); i++)
+		std::cout << sorted[i] << " ";
+	std::cout << std::endl;
+	mergeInsert_vector(sorted);
+	std::vector<int> test;
+	test.push_back(main[0]);
+	//inserted remaining elements (starting to 1 since 0 has been inserted)
+	/* for (size_t i = 1; i < main.size(); i++)
 	{
-		std::cout << high_paired[i] << " ";
+		insertIndex = binarySearch_vector(sorted, main[i], 0, sorted.size() - 1);
+		sorted.insert(sorted.begin() + insertIndex, main[i]);
 	} */
-	//sorting the pair with recursion :
-
+	this->vector = sorted;
 }
 
 void PmergeMe::sort(char **ag, int ac)
@@ -123,7 +143,7 @@ void PmergeMe::sort(char **ag, int ac)
 	print_vector();
 	print_deque();
 
-	merge_insert_vector(this->vector);
+	mergeInsert_vector(this->vector);
 /* 	struct timeval start_v, start_d;
 	struct timeval end_v, end_d;
 	double buffer;
@@ -140,6 +160,6 @@ void PmergeMe::sort(char **ag, int ac)
 	std::cout << "Time to process a range of: " << this->deque.size() << " elements with std::deque  :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 
-	print_vector();
 	print_deque(); */
+	print_vector();
 }
