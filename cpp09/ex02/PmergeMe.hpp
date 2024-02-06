@@ -14,11 +14,11 @@ class PmergeMe
 {
 public:
 	PmergeMe();
-	PmergeMe(const PmergeMe &copy);
-	PmergeMe& operator=(const PmergeMe &cpy);
 	~PmergeMe();
 	void sort(char **ag, int ac);
 private:
+	PmergeMe(const PmergeMe &copy);
+	PmergeMe& operator=(const PmergeMe &cpy);
 	std::vector<int> vector;
 	std::vector<int> vector_copy;
 	std::deque<int> deque;

@@ -5,19 +5,6 @@ PmergeMe::PmergeMe()
 
 }
 
-PmergeMe::PmergeMe(const PmergeMe &copy)
-{
-	std::cout << "PmergeMe created with copy constructor\n";
-	(void) copy;
-}
-
-PmergeMe& PmergeMe::operator=(const PmergeMe &copy)
-{
-	std::cout << "PmergeMe created with operator constructor\n";
-	(void) copy;
-	return *this;
-}
-
 PmergeMe::~PmergeMe()
 {
 
@@ -143,34 +130,58 @@ void PmergeMe::sort_pair(std::vector<int> &arr, int offset)
 
 void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 {
-	std::vector<int> larger_pair; //n/2 elem pair
-	for (size_t i = 0; i < main.size() - 1; i+=2)
+	std::vector<int> larger_pair;
+
+	//popping the latest value if the vector isn't even, so we can create pair
+	int last = -1;
+	if (main.size() % 2 != 0)
 	{
-		if (main[i] < main[i+1])
-			larger_pair.push_back(main[i+1]);
-		else
-			larger_pair.push_back(main[i]);
+		last = main.back();
+		main.pop_back();
 	}
-	sort_pair(larger_pair, 0);//les pairs sont trier plus qu a binarysort
-	for (size_t i = 0; i < larger_pair.size(); i++)
-		std::cout << larger_pair[i] << " ";
-	std::cout << std::endl;
-	/* for (size_t i = 0; i < larger_pair.size(); i++)
-		std::cout << larger_pair[i] << " ";
-	std::cout << std::endl; */
-/*
+
+	// the n/2 comparison per pair
+	for (std::vector<int>::iterator it = main.begin(); it < main.end(); it+=2)
+	{
+		if (*it < *(it+1))
+			larger_pair.push_back(*(it+1));
+		else
+			larger_pair.push_back(*it);
+	}
+
+	//erasing form the main vector, since we moved those value in the larger_pair one
+	for (std::vector<int>::iterator it = main.begin(); it != main.end(); it+=2)
+	{
+		if (*it < *(it+1))
+		{
+			main.erase((it+1));
+			it--;
+		}
+		else
+			main.erase(it);
+	}
+
+	//recursively sorting each pair in ascending order
+	sort_pair(larger_pair, 0);
+
+	//step 4 of wikipedia
+
+	//inserting the unsorted elements into our sorted vector
 	int insertIndex = 0;
 	for (size_t i = 0; i < main.size(); i++)
 	{
-		insertIndex = binarySearch_vector(sorted, main[i], 0, sorted.size() - 1);
-		std::cout << "inserted:" << main[i] << " at []" << insertIndex<<"\n";
-		std::cout << "now : ";
-		sorted.insert(sorted.begin() + insertIndex, main[i]);
-		for (size_t i = 0; i < sorted.size(); i++)
-			std::cout << sorted[i] << " ";
-		std::cout << "\n";
+		insertIndex = binarySearch_vector(larger_pair, main[i], 0, larger_pair.size() - 1);
+		larger_pair.insert(larger_pair.begin() + insertIndex, main[i]);
 	}
-	this->vector = sorted; */
+
+	//adding back the popped element from the start if there was one
+	if (last != -1)
+	{
+		insertIndex = binarySearch_vector(larger_pair, last, 0, larger_pair.size() - 1);
+		larger_pair.insert(larger_pair.begin() + insertIndex, last);
+	}
+
+	this->vector = larger_pair;
 }
 
 void PmergeMe::sort(char **ag, int ac)
