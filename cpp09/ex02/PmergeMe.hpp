@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <iomanip>
+#include <algorithm>
 
 #define MAKEITSHORTER 0
 

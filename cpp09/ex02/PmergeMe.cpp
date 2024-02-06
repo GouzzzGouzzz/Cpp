@@ -21,17 +21,17 @@ bool PmergeMe::input(char **ag, int ac)
 		for (size_t i = 0; i < parse.size(); i++)
 		{
 			if (parse[i] != ' ' && isdigit(parse[i]) == false){
-				std::cout << "At pos: " << i << " `"<< parse[i] << "` is not a valid input !" << std::endl;
+				std::cout << "Error: at pos: " << i << " `"<< parse[i] << "` is not a valid input !" << std::endl;
 				return false;
 			}
 			if (parse[i] == ' ' && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
 			{
-				std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
+				std::cout<< "Error: Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
 				return false;
 			}
 			if (i == 0 && strtol(parse.substr(i, parse.size()).c_str(), NULL,10) > 2147483647)
 			{
-				std::cout<< "Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
+				std::cout<< "Error: Too big number given ! need to be less than 2147483647 and greather than 0."<< std::endl;
 				return false;
 			}
 		}
@@ -39,6 +39,17 @@ bool PmergeMe::input(char **ag, int ac)
 		{
 			this->vector.push_back(nb);
 			this->deque.push_back(nb);
+		}
+	}
+	for (std::vector<int>::iterator it = this->vector.begin(); it != this->vector.end(); ++it)
+	{
+		for (std::vector<int>::iterator it2 = it+1; it2 != this->vector.end(); ++it2)
+		{
+			if (*it == *it2)
+			{
+				std::cout << "Error: Duplicated number aren't allowed\n";
+				return false;
+			}
 		}
 	}
 	return true;
@@ -90,27 +101,6 @@ int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target, int
 	return low;
 }
 
-int PmergeMe::get_paired(int target)
-{
-	for (size_t i = 0; i < this->vector_copy.size(); i++)
-	{
-		if (this->vector_copy[i] == target)
-		{
-			if (i % 2 == 0)
-			{
-				std::cout << "returned :" << this->vector_copy[i+1] << " for " << target << "\n";
-				return this->vector_copy[i+1];
-			}
-			else
-			{
-				std::cout << "returned :" << this->vector_copy[i+1] << " for " << target << "\n";
-				return this->vector_copy[i-1];
-			}
-		}
-	}
-	return -1;
-}
-
 void PmergeMe::sort_pair(std::vector<int> &arr, int offset)
 {
 	if (size_t(offset) < arr.size() - 1)
@@ -149,22 +139,16 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 			larger_pair.push_back(*it);
 	}
 
-	//erasing form the main vector, since we moved those value in the larger_pair one
-	for (std::vector<int>::iterator it = main.begin(); it != main.end(); it+=2)
-	{
-		if (*it < *(it+1))
-		{
-			main.erase((it+1));
-			it--;
-		}
-		else
-			main.erase(it);
-	}
+	//erasing from the main vector, since we moved those value in the larger_pair one
+	for (std::vector<int>::iterator it = larger_pair.begin(); it != larger_pair.end(); ++it)
+		main.erase(std::remove(main.begin(), main.end(), *it), main.end());
 
 	//recursively sorting each pair in ascending order
 	sort_pair(larger_pair, 0);
 
-	//step 4 of wikipedia
+	//inserting the first element manually since it was the lower value of our first pair
+	larger_pair.insert(larger_pair.begin(), main[0]);
+	main.erase(main.begin());
 
 	//inserting the unsorted elements into our sorted vector
 	int insertIndex = 0;
