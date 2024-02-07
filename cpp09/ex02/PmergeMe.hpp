@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <algorithm>
 
-#define MAKEITSHORTER 1
+#define MAKEITSHORTER 0
 
 class PmergeMe
 {
