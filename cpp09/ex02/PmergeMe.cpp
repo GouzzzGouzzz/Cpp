@@ -87,7 +87,7 @@ void PmergeMe::sort_pair_deque(std::deque<int> &deque, int offset)
 	{
 		for (size_t i = offset + 1; i < deque.size(); i++)
 		{
-			if (deque[i] < deque[offset]) // swap
+			if (deque[i] < deque[offset])
 			{
 				int tmp = deque[i];
 				deque[i] = deque[offset];
@@ -175,8 +175,6 @@ void PmergeMe::print_vector()
 	std::cout << "\n\n";
 }
 
-
-
 int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target) const
 {
 	int mid = 0, low = 0, high = sortedArray.size() - 1;
@@ -199,7 +197,7 @@ void PmergeMe::sort_pair_vector(std::vector<int> &arr, int offset)
 	{
 		for (size_t i = offset + 1; i < arr.size(); i++)
 		{
-			if (arr[i] < arr[offset]) // swap
+			if (arr[i] < arr[offset])
 			{
 				int tmp = arr[i];
 				arr[i] = arr[offset];
