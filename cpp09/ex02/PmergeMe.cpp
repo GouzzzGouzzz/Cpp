@@ -289,13 +289,17 @@ void PmergeMe::sort(char **ag, int ac)
 	print_vector();
 
 	gettimeofday(&start_v, NULL);
+
 	mergeInsert_vector(this->vector);
+
 	gettimeofday(&end_v, NULL);
 	buffer = (double)(end_v.tv_sec - start_v.tv_sec) + (double)(end_v.tv_usec - start_v.tv_usec) / 1000000;
 	std::cout << "Time to process a range of: " << this->vector.size() << " elements with std::vector :";
 	std::cout << std::fixed << std::setprecision(5) << buffer << " us\n";
 	gettimeofday(&start_d, NULL);
+
 	mergeInsert_deque(this->deque);
+
 	gettimeofday(&end_d, NULL);
 	buffer = (double)(end_d.tv_sec - start_d.tv_sec) + (double)(end_d.tv_usec - start_d.tv_usec) / 1000000;
 	std::cout << "Time to process a range of: " << this->deque.size() << " elements with std::deque  :";
