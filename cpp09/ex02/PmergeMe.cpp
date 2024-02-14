@@ -251,21 +251,25 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 
 	//inserting the unsorted elements into our sorted vector using the jacobsthal sequence
 	int insertIndex = 0;
-	while (jacob_suite.empty() == false)
+	for (size_t i = 0; i < main.size(); i++)
 	{
-		insertIndex = binarySearch_vector(larger_pair, main[jacob_suite[0] - 1]);
+		insertIndex = binarySearch_vector(larger_pair, main[i], getMax(main[i]), jacob_suite[i]);
+	}
+/* 	while (jacob_suite.empty() == false)
+	{
+		insertIndex = binarySearch_vector(larger_pair, main[jacob_suite[0] - 1]); // refaire lui pour utiliser la jacob suite
 		larger_pair.insert(larger_pair.begin() + insertIndex, main[jacob_suite[0] - 1]);
 		main.erase(main.begin() + jacob_suite[0] -1);
 		jacob_suite.erase(jacob_suite.begin());
-	}
+	} */
 
 	//insert the remaining elements of the main array into the sorted one
-	for (size_t i = 0; i < main.size(); i++)
+	/* for (size_t i = 0; i < main.size(); i++)
 	{
 		insertIndex = binarySearch_vector(larger_pair, main[i]);
 		larger_pair.insert(larger_pair.begin() + insertIndex, main[i]);
 	}
-
+ */
 	//adding back the popped element from the start if there was one
 	if (last != -1)
 	{
