@@ -191,7 +191,7 @@ int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target) con
 	return low;
 }
 
-void PmergeMe::sort_pair_vector(std::vector<int> &arr, int offset)
+void PmergeMe::sort_pair_vector(std::vector<int>& arr, int offset)
 {
 	if (size_t(offset) < arr.size() - 1)
 	{
