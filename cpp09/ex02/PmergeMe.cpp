@@ -52,17 +52,22 @@ bool PmergeMe::input(char **ag, int ac)
 			}
 		}
 	}
+	if (this->vector.size() == 1)
+	{
+		std::cout << "Error : One number can't be sorted\n";
+		return false;
+	}
 	return true;
 }
 
-int PmergeMe::get_jacobsthal(int index) const
+std::vector<int> PmergeMe::get_jacobsthal(int index) const
 {
-	if (index == 0)
-		return 0;
-	else if (index == 1)
-		return 1;
-	else
-		return get_jacobsthal(index - 1) + 2 * get_jacobsthal(index - 2);
+	std::vector<int> seq(index);
+	seq.push_back(0);
+	seq.push_back(1);
+	for (int i = 2; i < index; i++)
+		seq[i] = seq[i - 1] + 2 * seq[i - 2];
+	return seq;
 }
 
 //	*********************************** DEQUE ***********************************
@@ -98,18 +103,32 @@ void PmergeMe::sort_pair_deque(std::deque<int> &deque, int offset)
 	}
 }
 
-int PmergeMe::binarySearch_deque(std::deque<int>& sorted, int target) const
+int PmergeMe::binarySearch_deque(std::deque<int>& arr, int target, std::vector<int>& jacob) const
 {
-	int mid = 0, low = 0, high = sorted.size() - 1;
+	int mid = 0, low = 0, high = arr.size() - 1;
+	int jacob_index = jacob.size() - 1;
 	while (low <= high)
 	{
-		mid = low + (high - low) / 2;
-		if (sorted[mid] == target)
+		mid = low + jacob[jacob_index];
+		if (mid > high)
+			mid = high;
+
+		if (arr[mid] == target)
 			return mid;
-		else if (sorted[mid] < target)
+		else if (arr[mid] < target)
+		{
 			low = mid + 1;
+			jacob_index++;
+			if (jacob_index >= (int)jacob.size())
+				jacob_index = jacob.size() - 1;
+		}
 		else
+		{
 			high = mid - 1;
+			jacob_index-=2;
+			if (jacob_index < 0)
+				jacob_index = 0;
+		}
 	}
 	return low;
 }
@@ -117,16 +136,16 @@ int PmergeMe::binarySearch_deque(std::deque<int>& sorted, int target) const
 void PmergeMe::mergeInsert_deque(std::deque<int>& main)
 {
 	std::deque<int> larger_pair;
-	std::deque<int> jacob_suite;
-	int index = 3;
+	std::vector<int> jacob_seq;
 	int insertIndex = 0;
 	int last = -1;
-
-	if (main.size() % 2 != 0){
+	if (main.size() % 2 != 0)
+	{
 		last = main.back();
 		main.pop_back();
 	}
-	for (std::deque<int>::iterator it = main.begin(); it < main.end(); it+=2){
+	for (std::deque<int>::iterator it = main.begin(); it < main.end(); it+=2)
+	{
 		if (*it < *(it+1))
 			larger_pair.push_back(*(it+1));
 		else
@@ -135,25 +154,24 @@ void PmergeMe::mergeInsert_deque(std::deque<int>& main)
 	for (std::deque<int>::iterator it = larger_pair.begin(); it != larger_pair.end(); ++it)
 		main.erase(std::remove(main.begin(), main.end(), *it), main.end());
 	sort_pair_deque(larger_pair, 0);
-	larger_pair.insert(larger_pair.begin(), main[0]);
-	main.erase(main.begin());
-	while (get_jacobsthal(index) < static_cast<int>(main.size() - 1)){
-		jacob_suite.push_back(get_jacobsthal(index));
-		index++;
-	}
-	while (jacob_suite.empty() == false){
-		insertIndex = binarySearch_deque(larger_pair, main[jacob_suite[0] - 1]);
-		larger_pair.insert(larger_pair.begin() + insertIndex, main[jacob_suite[0] - 1]);
-		main.erase(main.begin() + jacob_suite[0] -1);
-		jacob_suite.erase(jacob_suite.begin());
-	}
-	for (size_t i = 0; i < main.size(); i++){
-		insertIndex = binarySearch_deque(larger_pair, main[i]);
+	jacob_seq = get_jacobsthal(main.size());
+	for (size_t i = 0; i < main.size(); i++)
+	{
+		insertIndex = binarySearch_deque(larger_pair, main[i], jacob_seq);
 		larger_pair.insert(larger_pair.begin() + insertIndex, main[i]);
 	}
-	if (last != -1){
-		insertIndex = binarySearch_deque(larger_pair, last);
+	if (last != -1)
+	{
+		insertIndex = binarySearch_deque(larger_pair, last, jacob_seq);
 		larger_pair.insert(larger_pair.begin() + insertIndex, last);
+	}
+	if (CHECKSORT)
+	{
+		for (size_t i = 0; i < larger_pair.size() - 1; i++) {
+			if (larger_pair[i] > larger_pair[i + 1]) {
+				std::cout << "NOT SORTED :" << larger_pair[i] << " With " << larger_pair[i+1] << "\n";
+			}
+		}
 	}
 	this->deque = larger_pair;
 }
@@ -175,18 +193,32 @@ void PmergeMe::print_vector()
 	std::cout << "\n\n";
 }
 
-int PmergeMe::binarySearch_vector(std::vector<int>& sortedArray, int target) const
+int PmergeMe::binarySearch_vector(std::vector<int>& arr, int target, std::vector<int>& jacob) const
 {
-	int mid = 0, low = 0, high = sortedArray.size() - 1;
+	int mid = 0, low = 0, high = arr.size() - 1;
+	int jacob_index = jacob.size() - 1;
 	while (low <= high)
 	{
-		mid = low + (high - low) / 2;
-		if (sortedArray[mid] == target)
+		mid = low + jacob[jacob_index];
+		if (mid > high)
+			mid = high;
+
+		if (arr[mid] == target)
 			return mid;
-		else if (sortedArray[mid] < target)
+		else if (arr[mid] < target)
+		{
 			low = mid + 1;
+			jacob_index++;
+			if (jacob_index >= (int)jacob.size())
+				jacob_index = jacob.size() - 1;
+		}
 		else
+		{
 			high = mid - 1;
+			jacob_index-=2;
+			if (jacob_index < 0)
+				jacob_index = 0;
+		}
 	}
 	return low;
 }
@@ -220,7 +252,7 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 		main.pop_back();
 	}
 
-	// the n/2 comparison per pair
+	// taking the highest number of each pair
 	for (std::vector<int>::iterator it = main.begin(); it < main.end(); it+=2)
 	{
 		if (*it < *(it+1))
@@ -229,52 +261,38 @@ void PmergeMe::mergeInsert_vector(std::vector<int>& main)
 			larger_pair.push_back(*it);
 	}
 
-	//erasing from the main vector, since we moved those value in "larger_pair"
+	//erasing from the main vector all the highest number, since we moved those value in "larger_pair"
 	for (std::vector<int>::iterator it = larger_pair.begin(); it != larger_pair.end(); ++it)
 		main.erase(std::remove(main.begin(), main.end(), *it), main.end());
 
 	//recursively sorting each pair in ascending order
 	sort_pair_vector(larger_pair, 0);
 
-	//inserting the first element manually since it was the lower value of our first pair
-	larger_pair.insert(larger_pair.begin(), main[0]);
-	main.erase(main.begin());
-
 	//creating the jacobsthal sequence for the main array
-	std::vector<int> jacob_suite;
-	int index = 3;
-	while (get_jacobsthal(index) < static_cast<int>(main.size() - 1))
-	{
-		jacob_suite.push_back(get_jacobsthal(index));
-		index++;
-	}
+	std::vector<int> jacob_seq = get_jacobsthal(main.size());
 
 	//inserting the unsorted elements into our sorted vector using the jacobsthal sequence
 	int insertIndex = 0;
+
 	for (size_t i = 0; i < main.size(); i++)
 	{
-		insertIndex = binarySearch_vector(larger_pair, main[i], getMax(main[i]), jacob_suite[i]);
-	}
-/* 	while (jacob_suite.empty() == false)
-	{
-		insertIndex = binarySearch_vector(larger_pair, main[jacob_suite[0] - 1]); // refaire lui pour utiliser la jacob suite
-		larger_pair.insert(larger_pair.begin() + insertIndex, main[jacob_suite[0] - 1]);
-		main.erase(main.begin() + jacob_suite[0] -1);
-		jacob_suite.erase(jacob_suite.begin());
-	} */
-
-	//insert the remaining elements of the main array into the sorted one
-	/* for (size_t i = 0; i < main.size(); i++)
-	{
-		insertIndex = binarySearch_vector(larger_pair, main[i]);
+		insertIndex = binarySearch_vector(larger_pair, main[i], jacob_seq);
 		larger_pair.insert(larger_pair.begin() + insertIndex, main[i]);
 	}
- */
+
 	//adding back the popped element from the start if there was one
 	if (last != -1)
 	{
-		insertIndex = binarySearch_vector(larger_pair, last);
+		insertIndex = binarySearch_vector(larger_pair, last, jacob_seq);
 		larger_pair.insert(larger_pair.begin() + insertIndex, last);
+	}
+	if (CHECKSORT)
+	{
+		for (size_t i = 0; i < larger_pair.size() - 1; i++) {
+			if (larger_pair[i] > larger_pair[i + 1]) {
+				std::cout << "NOT SORTED :" << larger_pair[i] << " With " << larger_pair[i+1] << "\n";
+			}
+		}
 	}
 	this->vector = larger_pair;
 }
@@ -291,7 +309,6 @@ void PmergeMe::sort(char **ag, int ac)
 
 	print_deque();
 	print_vector();
-
 	gettimeofday(&start_v, NULL);
 
 	mergeInsert_vector(this->vector);

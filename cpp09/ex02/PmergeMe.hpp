@@ -9,7 +9,8 @@
 #include <iomanip>
 #include <algorithm>
 
-#define MAKEITSHORTER 0
+#define MAKEITSHORTER 1
+#define CHECKSORT 0
 
 class PmergeMe
 {
@@ -23,15 +24,15 @@ private:
 	std::vector<int> vector;
 	std::deque<int> deque;
 	bool input(char **ag, int ac);
-	int get_jacobsthal(int index) const;
+	std::vector<int> get_jacobsthal(int index) const;
 	//deque
 	void print_deque();
 	void sort_pair_deque(std::deque<int> &arr, int offset);
 	void mergeInsert_deque(std::deque<int>& main);
-	int binarySearch_deque(std::deque<int>& sortedArray, int target) const;
+	int binarySearch_deque(std::deque<int>& arr, int target, std::vector<int>& jacob) const;
 	//vector
 	void print_vector();
 	void sort_pair_vector(std::vector<int> &arr, int offset);
 	void mergeInsert_vector(std::vector<int>& main);
-	int binarySearch_vector(std::vector<int>& sortedArray, int target) const;
+	int binarySearch_vector(std::vector<int>& arr, int target, std::vector<int>& jacob) const;
 };
