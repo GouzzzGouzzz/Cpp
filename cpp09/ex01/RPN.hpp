@@ -14,6 +14,7 @@ public:
 private:
 	std::stack<int> _data;
 	int top_pop();
+	bool check_size(void) const;
 	bool parse(std::string data) const;
 	bool is_data(std::string str) const;
 };

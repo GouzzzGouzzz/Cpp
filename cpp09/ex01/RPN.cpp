@@ -71,50 +71,89 @@ int RPN::top_pop()
 	return temp;
 }
 
+bool RPN::check_size(void) const
+{
+	if (this->_data.size() < 2)
+	{
+		std::cout << "ERROR" << std::endl;
+		return false;
+	}
+	return true;
+}
+
 void RPN::calcul(std::string str)
 {
 	if (parse(str) == false){
 		std::cout << "ERROR" << std::endl;
 		return ;
 	}
-
+	bool output = true;
 	int first, second, result;
 	for (size_t i = 0; i < str.size(); i++)
 	{
+		if (output == false)
+			break;
 		if (isdigit(str[i]))
 			this->_data.push(atoi(str.substr(i,1).c_str()));
-		else if (str[i] != ' '){
-			switch (str[i])
+		else if (str[i] != ' ')
+		{
+			if (str[i] == '-')
 			{
-			case '-':
+				if (check_size() == false)
+				{
+					output = false;
+					break;
+				}
 				second = top_pop();
 				first = top_pop();
 				result = first - second;
 				this->_data.push(result);
-				break;
-			case '+':
+			}
+			else if (str[i] == '+')
+			{
+				if (check_size() == false)
+				{
+					output = false;
+					break;
+				}
 				second = top_pop();
 				first = top_pop();
 				result = first + second;
 				this->_data.push(result);
-				break;
-			case '*':
+			}
+			else if (str[i] == '*')
+			{
+				if (check_size() == false)
+				{
+					output = false;
+					break;
+				}
 				second = top_pop();
 				first = top_pop();
 				result = first * second;
 				this->_data.push(result);
-				break;
-			case '/':
+			}
+			else
+			{
+				if (check_size() == false)
+				{
+					output = false;
+					break;
+				}
 				second = top_pop();
 				first = top_pop();
+				if (second == 0) //dividing by zero
+				{
+					std::cout << "ERROR" << std::endl;
+					output = false;
+					break;
+				}
 				result = first / second;
 				this->_data.push(result);
-				break;
-			default:
-				std::cout << "Something went wrong !\n";
 			}
 		}
 	}
-	std::cout << this->_data.top() << std::endl;
+	if (output == true)
+		std::cout << this->_data.top() << std::endl;
 	this->_data.pop();
 }
