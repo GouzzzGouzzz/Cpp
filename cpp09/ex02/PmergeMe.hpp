@@ -10,7 +10,7 @@
 #include <algorithm>
 
 #define MAKEITSHORTER 1
-#define CHECKSORT 0
+#define CHECKSORT 1
 
 class PmergeMe
 {

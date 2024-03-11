@@ -32,7 +32,7 @@ BitcoinExchange::~BitcoinExchange()
 
 void BitcoinExchange::fillDB()
 {
-	std::ifstream db ("datacp.csv");
+	std::ifstream db ("data.csv");
 	std::string buffer, date;
 	float value = 0;
 	int line = 1;
