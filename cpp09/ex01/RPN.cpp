@@ -155,5 +155,4 @@ void RPN::calcul(std::string str)
 	}
 	if (output == true)
 		std::cout << this->_data.top() << std::endl;
-	this->_data.pop();
 }
