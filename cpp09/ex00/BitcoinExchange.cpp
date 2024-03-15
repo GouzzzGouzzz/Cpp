@@ -197,10 +197,11 @@ void BitcoinExchange::operate(std::string filename) //gerer le cas ou une date e
 			output_error();
 			//Getting the both closest date (the n+1 and n-1)
 			if (this->_is_valid == 0 && this->database.find(date) != this->database.end())
-				std::cout << date << "=> " << value << " = " << value * this->database.at(date) << std::endl;
+				std::cout << date << " => " << value << " = " << value * this->database.at(date) << std::endl;
 			else if (this->_is_valid == 0)
 			{
 				low = this->database.lower_bound(date)->first;
+				std::cout << low;
 				if (low != this->database.begin()->first)
 				{
 					for (rit = this->database.rbegin(); rit != this->database.rend(); rit++)
@@ -226,6 +227,9 @@ void BitcoinExchange::operate(std::string filename) //gerer le cas ou une date e
 						std::cout << date << " => " << value << " = " << value * (*rit).second << std::endl;
 					else if (this->_is_valid == 0)
 						std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
+				}
+				else{
+					std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
 				}
 			}
 		}
