@@ -97,15 +97,15 @@ int BitcoinExchange::get_date(std::string buffer) const
 		leap_year = 1;
 	if (tab[1] < 1 || tab[1] > 12)
 		return -1;
-	if (tab[2] < 1 || tab[2] > 31)
+	if (tab[2] < 1 || tab[2] > 31)	//handle les mois pas a 31 jour etc...
 		return -1;
-	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year);
+	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year); // le result et faux a cause de la ligne du dessus
 }
 
 
 void BitcoinExchange::check_date(std::string date)
 {
-	if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
+	if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10) //maybe bug avec 00-00
 	{
 		if (date[4] != '-' || date[7] != '-')
 			this->_is_valid = 1;
@@ -160,7 +160,7 @@ void BitcoinExchange::output_error() const
 	}
 }
 
-void BitcoinExchange::operate(std::string filename)
+void BitcoinExchange::operate(std::string filename) //gerer le cas ou une date est avant celle de la db du bitcoin , essayer avec 2048-xx-xx --> crash lors de la correc
 {
 	std::ifstream file(filename.c_str());
 	std::string buffer, date;
