@@ -68,7 +68,7 @@ void BitcoinExchange::fillDB()
 				this->_is_valid = 7;
 			if (this->_is_valid != 0)
 			{
-				std::cout << "| line :" << line << " | Database";
+				std::cout << "| line : " << line << " | Database ";
 				output_error();
 				break;
 			}
@@ -86,9 +86,10 @@ int BitcoinExchange::get_date(std::string buffer) const
 {
 	int tab[3];
 	int leap_year = 0;
-	tab[0]=atoi(buffer.substr(0,4).c_str());
-	tab[1]=atoi(buffer.substr(5,7).c_str());
-	tab[2]=atoi(buffer.substr(8,10).c_str());
+	int max_day = 31;
+	tab[0]=atoi(buffer.substr(0,4).c_str()); //year
+	tab[1]=atoi(buffer.substr(5,7).c_str()); // month
+	tab[2]=atoi(buffer.substr(8,10).c_str()); //day
 	if (tab[0] % 400 == 0)
 		leap_year = 1;
 	else if (tab[0] % 100 == 0)
@@ -97,15 +98,21 @@ int BitcoinExchange::get_date(std::string buffer) const
 		leap_year = 1;
 	if (tab[1] < 1 || tab[1] > 12)
 		return -1;
-	if (tab[2] < 1 || tab[2] > 31)	//handle les mois pas a 31 jour etc...
+	if (tab[1] <= 7 && tab[1] % 2 != 0)
+		max_day = 31;
+	else if(tab[1] % 2 == 0)
+		max_day = 31;
+	if (tab[1] == 2) //fevrier
+		max_day = 28 + leap_year;
+	if (tab[2] < 1 || tab[2] > max_day)
 		return -1;
-	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year); // le result et faux a cause de la ligne du dessus
+	return (365 * tab[0] + 30 * tab[1] + tab[2] + leap_year);
 }
 
 
 void BitcoinExchange::check_date(std::string date)
 {
-	if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10) //maybe bug avec 00-00
+	if (std::count(date.begin(), date.end(), '-') == 2 && date.size() == 10)
 	{
 		if (date[4] != '-' || date[7] != '-')
 			this->_is_valid = 1;
