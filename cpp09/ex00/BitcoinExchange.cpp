@@ -200,8 +200,14 @@ void BitcoinExchange::operate(std::string filename) //gerer le cas ou une date e
 				std::cout << date << " => " << value << " = " << value * this->database.at(date) << std::endl;
 			else if (this->_is_valid == 0)
 			{
-				low = this->database.lower_bound(date)->first;
-				std::cout << low;
+				if (this->database.lower_bound(date) != this->database.end())
+					low = this->database.lower_bound(date)->first;
+				else
+				{
+					std::cout << date << " => " << value << " = " << value * this->database.rbegin()->second << " {using "<<this->database.rbegin()->first << "}" <<std::endl;
+					//take the latest data known and do the calcul like that
+					continue;
+				}
 				if (low != this->database.begin()->first)
 				{
 					for (rit = this->database.rbegin(); rit != this->database.rend(); rit++)
@@ -229,7 +235,7 @@ void BitcoinExchange::operate(std::string filename) //gerer le cas ou une date e
 						std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
 				}
 				else{
-					std::cout << date << " => " << value << " = " << value * this->database.lower_bound(date)->second << std::endl;
+					std::cout << date << " => " << value << " = " << value * this->database.begin()->second << " {using "<<this->database.begin()->first << "}"<< std::endl;
 				}
 			}
 		}
