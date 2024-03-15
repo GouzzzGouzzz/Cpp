@@ -63,7 +63,7 @@ bool RPN::parse(std::string data) const
 	return true;
 }
 
-int RPN::top_pop()
+float RPN::top_pop()
 {
 	int temp;
 	temp = this->_data.top();
@@ -88,7 +88,7 @@ void RPN::calcul(std::string str)
 		return ;
 	}
 	bool output = true;
-	int first, second, result;
+	float first, second, result;
 	for (size_t i = 0; i < str.size(); i++)
 	{
 		if (output == false)

@@ -12,7 +12,7 @@ public:
 	~RPN();
 	void calcul(std::string str);
 private:
-	std::stack<int> _data;
+	std::stack<float> _data;
 	int top_pop();
 	bool check_size(void) const;
 	bool parse(std::string data) const;
