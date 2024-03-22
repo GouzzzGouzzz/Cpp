@@ -13,7 +13,7 @@ public:
 	void calcul(std::string str);
 private:
 	std::stack<float> _data;
-	int top_pop();
+	float top_pop();
 	bool check_size(void) const;
 	bool parse(std::string data) const;
 	bool is_data(std::string str) const;
